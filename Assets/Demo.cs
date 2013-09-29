@@ -68,11 +68,10 @@ public class Demo : MonoBehaviour {
             offset + 1 * 1/zoom);
 
             // Generate the textures
-            this.m_textures[0] = this.m_noiseMap.GetTexture(LibNoise.Unity.Gradient.Grayscale);
+/*            this.m_textures[0] = this.m_noiseMap.GetTexture(Gradient.Grayscale);
             this.m_textures[0].Apply();
             
-			
-            this.m_textures[1] = this.m_noiseMap.GetTexture(LibNoise.Unity.Gradient.Terrain);
+            this.m_textures[1] = this.m_noiseMap.GetTexture(Gradient.Terrain);
             this.m_textures[1].Apply();
              
             this.m_textures[2] = this.m_noiseMap.GetNormalMap(3.0f);
@@ -83,11 +82,11 @@ public class Demo : MonoBehaviour {
             
 
             //write images to disk
-            //File.WriteAllBytes(Application.dataPath + "/../Gray.png", m_textures[0].EncodeToPNG() );
-           // File.WriteAllBytes(Application.dataPath + "/../Terrain.png", m_textures[1].EncodeToPNG() );
-           // File.WriteAllBytes(Application.dataPath + "/../Normal.png", m_textures[2].EncodeToPNG() );
+            File.WriteAllBytes(Application.dataPath + "/../Gray.png", m_textures[0].EncodeToPNG() );
+            File.WriteAllBytes(Application.dataPath + "/../Terrain.png", m_textures[1].EncodeToPNG() );
+            File.WriteAllBytes(Application.dataPath + "/../Normal.png", m_textures[2].EncodeToPNG() );
             
-            Debug.Log("Wrote Textures out to "+Application.dataPath + "/../");
+            Debug.Log("Wrote Textures out to "+Application.dataPath + "/../");*/
             
         
     }

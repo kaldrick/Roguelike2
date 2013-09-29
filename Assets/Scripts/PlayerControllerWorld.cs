@@ -74,8 +74,6 @@ public class PlayerControllerWorld : MonoBehaviour {
 			}
 		}
 		rigidbody.velocity = transform.forward * moveInput;
-		newPos = transform.position;
-		transform.position = newPos;
 		transform.Rotate(new Vector3(0, rotationInput, 0));
 	}
 	void OnCollisionEnter(Collision other)
