@@ -1,11 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shaders\Normal-Diffuse.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerControllerWorld.cs">
     <Files>
-      <File FileName="Assets\Scripts\WorldGenerator.cs" Line="347" Column="49" />
-      <File FileName="Assets\TreeScale.cs" Line="9" Column="2" />
-      <File FileName="Assets\DayTimeTest.cs" Line="7" Column="60" />
-      <File FileName="Assets\Shaders\Normal-Diffuse.shader" Line="8" Column="31" />
+      <File FileName="Assets\Scripts\PlayerControllerWorld.cs" Line="28" Column="24" />
+      <File FileName="Assets\Scripts\WorldGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets\TreeScale.cs" Line="1" Column="1" />
+      <File FileName="Assets\DayTimeTest.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
