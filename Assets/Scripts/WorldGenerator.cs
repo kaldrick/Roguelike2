@@ -25,12 +25,13 @@ public class WorldGenerator : MonoBehaviour
 	public int m_SegmentCount = 64;
 	//Height multiplies the final noise output
 	public float Height = 10.0f;
-	public GameObject tree;
+	public GameObject tree,snow;
 	//This divides the noise frequency
 	public float NoiseSize = 10.0f;
 	public Color[] colors, colors2;
 	public int[] iColors;
 	private int iStep = 0;
+	private int iStep2 = 0;
 	//Function that inputs the position and spits out a float value based on the perlin noise
 	public float PerlinNoise(float x, float y)
 	{
@@ -191,168 +192,41 @@ public class WorldGenerator : MonoBehaviour
 		if(meshBuilder.Vertices.Count != 0)
 		{
 		//	position += new Vector3(0, colors2[meshBuilder.Vertices.Count -1].r * 4096 + colors2[meshBuilder.Vertices.Count -1].g * 512 - colors2[meshBuilder.Vertices.Count -1].b * 1024, 0);	
-			if(colors2[meshBuilder.Vertices.Count -1].g> 0.7f && colors2[meshBuilder.Vertices.Count -1].r < 0.5)
+			if(colors2[meshBuilder.Vertices.Count -1].g> 0.7f && colors2[meshBuilder.Vertices.Count -1].r < 0.5f)
 			{
-				//Debug.Log ("Dzialam?1");
-				if(iStep == 0 && (Random.Range (1, 6) == 3))
+				if(iStep < 20)
 				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					lookTree.transform.parent = GameObject.Find ("Trees").transform;
-					iStep++;
+					if(Random.Range (1,6) == 3)
+					{
+						GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
+						lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
+						int j = iStep + 1;
+						lookTree.transform.parent = GameObject.Find ("Trees" + j).transform;
+						iStep++;
+					}
 				}
-				if(iStep == 1 && (Random.Range (1, 6) == 3))
+				else
 				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees2").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 2 && (Random.Range (1, 6) == 3))
+					iStep = 0;	
+				}	
+			}
+			if(colors2[meshBuilder.Vertices.Count -1].r > 0.8f && colors2[meshBuilder.Vertices.Count -1].g > 0.8f && colors2[meshBuilder.Vertices.Count -1].b > 0.8f)
+			{
+				if(iStep2 < 20)
 				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees3").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
+					if(Random.Range (1,6) == 3)
+					{
+						GameObject lookSnow = GameObject.Instantiate (snow,position - new Vector3(0, 80, 0), snow.transform.rotation) as GameObject;
+						lookSnow.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
+						int j = iStep2 + 1;
+						lookSnow.transform.parent = GameObject.Find ("Snow" + j).transform;
+						iStep2++;
+					}
 				}
-				if(iStep == 3 && (Random.Range (1, 6) == 3))
+				else
 				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees4").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 4 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees5").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 5 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees6").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 6 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees7").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 7 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees8").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 8 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees9").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 9 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees10").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 10 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees11").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 11 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees12").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 12 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees13").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 13 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees14").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 14 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees15").transform;
-					iStep++;
-				}
-				if(iStep == 15 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees16").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 16 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees17").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 17 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees18").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 18 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees19").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep++;
-				}
-				if(iStep == 19 && (Random.Range (1, 6) == 3))
-				{
-				//	Debug.Log ("Dzialam?2");
-					GameObject lookTree = GameObject.Instantiate (tree,position - new Vector3(0, 80, 0), tree.transform.rotation) as GameObject;
-					lookTree.transform.parent = GameObject.Find ("Trees20").transform;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-					iStep = 0;
-				}
+					iStep2= 0;	
+				}	
 			}
 		}
 		meshBuilder.UVs.Add(uv);

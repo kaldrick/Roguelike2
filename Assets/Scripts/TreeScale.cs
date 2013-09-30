@@ -18,6 +18,10 @@ public class TreeScale : MonoBehaviour {
 			transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			//Debug.Log (hit.point.y);
 		}
+		else
+		{
+			Destroy (gameObject);	
+		}
 	}
 	// Update is called once per frame
 	void Update () {
