@@ -43,7 +43,12 @@ slider2= slider;
 if(slider>0.5){
 slider2= (1-slider);
 }
-sun.intensity = (slider2-0.2)*1f;
+if(slider>1)
+{
+	slider = 0;
+	slider2 = 0;
+}
+sun.intensity = (slider2-0.2)*0.85f;
 
 
 if(Tod<4){

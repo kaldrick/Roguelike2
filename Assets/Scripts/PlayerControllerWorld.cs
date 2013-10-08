@@ -11,7 +11,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidbody.freezeRotation = true;
-		Physics.gravity = new Vector3(0f, -256.0f, 0f);
+		Physics.gravity = new Vector3(0f, -1024.0f, 0f);
 		normalCam.enabled = true;
 		overTopCam.enabled = false;
 		camPos = new Vector3(0, 32, -8);
@@ -24,7 +24,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float rotationInput = Input.GetAxis("Horizontal") * Time.deltaTime * 128;
-		float moveInput = Input.GetAxis ("Vertical") * Time.deltaTime * 1024;
+		float moveInput = Input.GetAxis ("Vertical") * Time.deltaTime * 4096;
 		float scrollInput = -Input.GetAxis ("Mouse ScrollWheel");
 		if(scrollInput != 0f)
 		{
@@ -61,7 +61,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 				normalCam.enabled = false;
 				overTopCam.enabled = true;
 				prevPosY = transform.localPosition.y;
-				transform.localScale = new Vector3(64, 1024, 64);
+				//transform.localScale = new Vector3(64, 1024, 64);
 				RenderSettings.fog = false;
 			}
 			else

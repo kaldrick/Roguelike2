@@ -5,7 +5,6 @@ public class PerlinNoise
 {
 	const int B = 256;
 	int[] m_perm = new int[B+B];
-	Texture2D m_permTex;
 
 	public PerlinNoise(int seed)
 	{
@@ -38,52 +37,31 @@ public class PerlinNoise
 	
 	float GRAD1(int hash, float x ) 
 	{
-		//This method uses the mod operator which is slower 
-		//than bitwise operations but is included out of interest
-//		int h = hash % 16;
-//		float grad = 1.0f + (h % 8);
-//		if((h%8) < 4) grad = -grad;
-//		return ( grad * x );
-		
-		int h = hash & 15;
-    	float grad = 1.0f + (h & 7);
-    	if ((h&8) != 0) grad = -grad;
-    	return ( grad * x );
+		int h = hash % 16;
+		float grad = 1.0f + (h % 8);
+		if((h%8) < 4) grad = -grad;
+		return ( grad * x );
 	}
 	
 	float GRAD2(int hash, float x, float y)
 	{
-		//This method uses the mod operator which is slower 
-		//than bitwise operations but is included out of interest
-//		int h = hash % 16;
-//    	float u = h<4 ? x : y;
-//    	float v = h<4 ? y : x;
-//		int hn = h%2;
-//		int hm = (h/2)%2;
-//    	return ((hn != 0) ? -u : u) + ((hm != 0) ? -2.0f*v : 2.0f*v);
-		
-    	int h = hash & 7;
+		int h = hash % 16;
     	float u = h<4 ? x : y;
     	float v = h<4 ? y : x;
-    	return (((h&1) != 0)? -u : u) + (((h&2) != 0) ? -2.0f*v : 2.0f*v);
+		int hn = h%2;
+		int hm = (h/2)%2;
+    	return ((hn != 0) ? -u : u) + ((hm != 0) ? -2.0f*v : 2.0f*v);
 	}
 	
 	
 	float GRAD3(int hash, float x, float y , float z)
 	{
-		//This method uses the mod operator which is slower 
-		//than bitwise operations but is included out of interest
-//    	int h = hash % 16;
-//    	float u = (h<8) ? x : y;
-//    	float v = (h<4) ? y : (h==12||h==14) ? x : z;
-//		int hn = h%2;
-//		int hm = (h/2)%2;
-//    	return ((hn != 0) ? -u : u) + ((hm != 0) ? -v : v);
-		
-		int h = hash & 15;
-    	float u = h<8 ? x : y;
-    	float v = (h<4) ? y : (h==12 || h==14) ? x : z;
-    	return (((h&1) != 0)? -u : u) + (((h&2) != 0)? -v : v);
+    	int h = hash % 16;
+    	float u = (h<8) ? x : y;
+    	float v = (h<4) ? y : (h==12||h==14) ? x : z;
+		int hn = h%2;
+		int hm = (h/2)%2;
+    	return ((hn != 0) ? -u : u) + ((hm != 0) ? -v : v);
 	}
 	
 	float Noise1D( float x )
@@ -207,7 +185,7 @@ public class PerlinNoise
 	{
 		float gain = 1.0f;
 		float sum = 0.0f;
-		
+	
 		for(int i = 0; i < octNum; i++)
 		{
 			sum += Noise2D(x*gain/frq, y*gain/frq) * amp/gain;
@@ -227,44 +205,6 @@ public class PerlinNoise
 			gain *= 2.0f;
 		}
 		return sum;
-	}
-	
-	public void LoadPermTableIntoTexture()
-	{
-		m_permTex = new Texture2D(256, 1, TextureFormat.Alpha8, false);
-		m_permTex.filterMode = FilterMode.Point;
-		m_permTex.wrapMode = TextureWrapMode.Clamp;
-		
-		for(int i = 0; i < 256; i++)
-		{
-			float v = (float)m_perm[i] / 255.0f;
-				
-			m_permTex.SetPixel(i, 0, new Color(0,0,0,v));
-		}
-		
-		m_permTex.Apply();
-	}
-	
-	public void RenderIntoTexture(Shader shader, RenderTexture renderTex, int octNum, float frq, float amp)
-	{
-		if(!m_permTex) LoadPermTableIntoTexture();
-		
-		Material mat = new Material(shader);
-		
-		mat.SetFloat("_Frq", frq);
-		mat.SetFloat("_Amp", amp);
-		mat.SetVector("_TexSize", new Vector4(renderTex.width-1.0f, renderTex.height-1.0f, 0, 0));
-		mat.SetTexture("_Perm", m_permTex);
-		
-		float gain = 1.0f;
-		for(int i = 0; i < octNum; i++)
-		{
-			mat.SetFloat("_Gain", gain);
-		   
-		    Graphics.Blit(null, renderTex, mat);
-			
-			gain *= 2.0f;
-		}
 	}
 
 }
