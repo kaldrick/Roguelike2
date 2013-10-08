@@ -50,6 +50,7 @@
      <Compile Include="Assets\mVertexPaint10\colorpicker.js" />
      <Compile Include="Assets\mVertexPaint10\mVertexPaint1.js" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
+     <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />

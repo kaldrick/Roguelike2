@@ -57,6 +57,7 @@
      <Compile Include="Assets\AstarPathfindingProject\Editor\SeekerEditor.cs" />
      <Compile Include="Assets\Editor\CreatePlane.cs" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
+     <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />

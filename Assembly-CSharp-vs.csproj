@@ -159,6 +159,7 @@
      <Compile Include="Assets\Scripts\WorldGenerator.cs" />
      <Compile Include="Assets\Scripts\XY.cs" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
+     <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />

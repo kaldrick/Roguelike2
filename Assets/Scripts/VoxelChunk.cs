@@ -203,6 +203,7 @@ public class VoxelChunk
 		m_mesh.AddComponent<MeshFilter>();
 		m_mesh.AddComponent<MeshRenderer>();
 		m_mesh.renderer.material = mat;
+		m_mesh.renderer.castShadows = false;
 		m_mesh.GetComponent<MeshFilter>().mesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);
