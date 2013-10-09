@@ -58,7 +58,7 @@ public class VoxelChunk
 		//This creates the noise used for the ground.
 		//The last value (8.0f) is the amp that defines (roughly) the maximum 
 		//and minimum vaule the ground varies from the surface level
-		return perlin.FractalNoise2D(x, z, 4, 80.0f, 8.0f);
+		return perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f);
 	}
 	
 	float SampleCaves(float x, float y, float z, PerlinNoise perlin)
