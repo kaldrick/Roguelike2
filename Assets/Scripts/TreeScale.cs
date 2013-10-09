@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class TreeScale : MonoBehaviour {
-	public float fTime = 0.0f;
 	// Use this for initialization
 	void Start () {
-		
+		transform.localPosition += new Vector3(Random.Range (-30, 30), 0, Random.Range (-30,30));
 		transform.localScale = new Vector3(Random.Range(1.5f, 5f), Random.Range (1.5f,5f), Random.Range (1.5f, 5f));
 		
 		CheckGround ();
@@ -13,9 +12,10 @@ public class TreeScale : MonoBehaviour {
 	void CheckGround()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 120f))
+		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 60f))
 		{
 			transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+			renderer.enabled = true;
 			//Debug.Log (hit.point.y);
 		}
 		else

@@ -11,14 +11,23 @@ public class ChunkData : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("PlayerWorld");
-		for(int i = 0; i < 5; i++)
+		for(int i = 1; i < 20; i++)
 		{
-			GameObject lookTree = GameObject.Instantiate (player.GetComponent<PlayerData>().tree,transform.position + new Vector3(Random.Range(-120, 120), 40, Random.Range (-120, 120)), player.GetComponent<PlayerData>().tree.transform.rotation) as GameObject;
-			lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-			Debug.Log (GameObject.Find ("Trees"+i));
-			if(GameObject.Find ("Trees"+i))
+			if(Random.Range (1,6) == 3)
 			{
-				lookTree.transform.parent = GameObject.Find ("Trees"+i).transform;
+				if(GameObject.Find ("Trees"+i))
+				{
+					GameObject lookTree = GameObject.Instantiate (player.GetComponent<PlayerData>().tree,transform.position + new Vector3(Random.Range(-120, 120), -25, Random.Range (-120, 120)), player.GetComponent<PlayerData>().tree.transform.rotation) as GameObject;
+					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
+				//Debug.Log (GameObject.Find ("Trees"+i));
+					lookTree.transform.parent = GameObject.Find ("Trees"+i).transform;
+					player.GetComponent<PlayerData>().trees.Add (lookTree);
+				//	GameObject.Find ("Trees" + i).GetComponent<CombineChildren>().CallCombineOnAllChilds();
+				}
+				else
+				{
+					return;
+				}
 			}
 		}
 	}

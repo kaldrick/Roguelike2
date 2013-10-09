@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Praca/Unity/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Praca/Unity/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -149,11 +149,13 @@
      <Compile Include="Assets\Scripts\PlayerControllerWorld.cs" />
      <Compile Include="Assets\Scripts\PlayerData.cs" />
      <Compile Include="Assets\Scripts\QuadTree.cs" />
+     <Compile Include="Assets\Scripts\RendererExtensions.cs" />
      <Compile Include="Assets\Scripts\Room.cs" />
      <Compile Include="Assets\Scripts\RoomXYContainer.cs" />
      <Compile Include="Assets\Scripts\SetGround.cs" />
      <Compile Include="Assets\Scripts\SimplexNoiseGenerator.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
+     <Compile Include="Assets\Scripts\TreeCheck.cs" />
      <Compile Include="Assets\Scripts\TreeScale.cs" />
      <Compile Include="Assets\Scripts\VoxelChunk.cs" />
      <Compile Include="Assets\Scripts\WorldGenerator.cs" />

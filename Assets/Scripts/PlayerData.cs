@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerData : MonoBehaviour {
 	public Vector3 centerChunkPos;
 	public List<ChunkData> chunks;
+	public List<GameObject> trees;
 	public GenerateTerrain terrain;
 	public GameObject tree;
 	public enum Dir { North, NorthEast, NorthWest, West, East, South, SouthEast, SouthWest };
