@@ -7,7 +7,7 @@ public class PlayerData : MonoBehaviour {
 	public List<ChunkData> chunks;
 	public List<GameObject> trees;
 	public GenerateTerrain terrain;
-	public GameObject tree;
+	public GameObject tree, village;
 	public enum Dir { North, NorthEast, NorthWest, West, East, South, SouthEast, SouthWest };
 	public int uncoverArea = 1;
 	public Dir currentDir;

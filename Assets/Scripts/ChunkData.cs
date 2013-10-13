@@ -29,6 +29,11 @@ public class ChunkData : MonoBehaviour {
 					return;
 				}
 			}
+			else if(Random.Range (1, 25) == 3)
+			{
+				GameObject lookVillage = GameObject.Instantiate (player.GetComponent<PlayerData>().village, transform.position + new Vector3(Random.Range (-120, 120), - 25, Random.Range (-120, 120)), player.GetComponent<PlayerData>().village.transform.rotation) as GameObject;
+				lookVillage.transform.parent = GameObject.Find ("Chatki").transform;
+			}
 		}
 	}
 	

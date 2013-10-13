@@ -5,8 +5,8 @@ public class TreeScale : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		transform.localPosition += new Vector3(Random.Range (-30, 30), 0, Random.Range (-30,30));
+		transform.localEulerAngles += new Vector3(0, Random.Range (0, 360), 0);
 		transform.localScale = new Vector3(Random.Range(1.5f, 5f), Random.Range (1.5f,5f), Random.Range (1.5f, 5f));
-		
 		CheckGround ();
 	}
 	void CheckGround()
