@@ -15,46 +15,9 @@ Shader "Custom/HeightShader" {
          Tags {"RenderType"="Opaque"  }
          LOD 200
 
-		Pass {
-		 
-		    Cull Front
-		    Lighting Off
-		 
-		    CGPROGRAM
-		    #pragma vertex vert
-		    #pragma fragment frag
-		 
-		    #include "UnityCG.cginc"
-		    struct a2v
-		    {
-		        float4 vertex : POSITION;
-		        float3 normal : NORMAL;
-		    }; 
-		 
-		    struct v2f
-		    {
-		        float4 pos : POSITION;
-		    };
-		 
-		    float _Outline;
-		 
-		    v2f vert (a2v v)
-		    {
-		        v2f o;
-		        o.pos = mul( UNITY_MATRIX_MVP, v.vertex + (float4(v.normal,0) * _Outline)); 
-		        return o;
-		    }
-		 
-		    float4 frag (v2f IN) : COLOR
-		    {
-		        return float(0);
-		    }
-		 
-		    ENDCG
-		 
-		}
+		
  		 CGPROGRAM
-         #pragma surface surf SimpleSpecular vertex:vert
+         #pragma surface surf SimpleSpecular vertex:vert noambient
          #include <UnityCG.cginc>
  		
          float _CenterHeight;
@@ -109,7 +72,7 @@ Shader "Custom/HeightShader" {
           	v.color = lerp(_LowRiversColor, _LowColor, cFactor);
           	v.vertex.y -= 0.3;
           } 
-         
+         	v.color = v.color * 1.2;
          } 
  
          void surf(Input IN, inout SurfaceOutput o){ 
@@ -118,6 +81,44 @@ Shader "Custom/HeightShader" {
          }
  
          ENDCG
+         Pass {
+		 
+		    Cull Front
+		    Lighting Off
+		 
+		    CGPROGRAM
+		    #pragma vertex vert
+		    #pragma fragment frag
+		 
+		    #include "UnityCG.cginc"
+		    struct a2v
+		    {
+		        float4 vertex : POSITION;
+		        float3 normal : NORMAL;
+		    }; 
+		 
+		    struct v2f
+		    {
+		        float4 pos : POSITION;
+		    };
+		 
+		    float _Outline;
+		 
+		    v2f vert (a2v v)
+		    {
+		        v2f o;
+		        o.pos = mul( UNITY_MATRIX_MVP, v.vertex + (float4(v.normal,0) * _Outline)); 
+		        return o;
+		    }
+		 
+		    float4 frag (v2f IN) : COLOR
+		    {
+		        return float(0);
+		    }
+		 
+		    ENDCG
+		 
+		}
        }
     
     FallBack "Diffuse"
