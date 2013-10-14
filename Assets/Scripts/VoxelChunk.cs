@@ -53,12 +53,13 @@ public class VoxelChunk
 		return Mathf.Min(0.0f, perlin.FractalNoise2D(x+w, z+w, 6, 120.0f, 32.0f) );
 	}
 	
-	float SampleGround(float x, float z, PerlinNoise perlin)
+	float SampleGround(float x, float z, PerlinNoise perlin, VoronoiNoise voronoi)
 	{
 		//This creates the noise used for the ground.
 		//The last value (8.0f) is the amp that defines (roughly) the maximum 
 		//and minimum vaule the ground varies from the surface level
-		return perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f);
+		//return perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f);
+		return voronoi.FractalNoise2D(x, z, 4, 48.0f, 8.0f);
 	}
 	
 	float SampleCaves(float x, float y, float z, PerlinNoise perlin)
@@ -71,7 +72,7 @@ public class VoxelChunk
 		return Mathf.Abs(perlin.FractalNoise3D(x+w, y*2.0f+w, z+w, 2, 40.0f, 2.0f));
 	}
 	
-	public void CreateVoxels(PerlinNoise surfacePerlin)//, PerlinNoise cavePerlin)
+	public void CreateVoxels(PerlinNoise surfacePerlin, VoronoiNoise voronoiNoise)//, PerlinNoise cavePerlin)
 	{
 		//float startTime = Time.realtimeSinceStartup;
 		
@@ -90,7 +91,7 @@ public class VoxelChunk
 				float worldX = x+m_pos.x;
 				float worldZ = z+m_pos.z;
 				
-				float groundHt = SampleGround(worldX, worldZ, surfacePerlin);
+				float groundHt = SampleGround(worldX, worldZ, surfacePerlin, voronoiNoise);
 				
 				float mountainHt = SampleMountains(worldX, worldZ, surfacePerlin);
 				

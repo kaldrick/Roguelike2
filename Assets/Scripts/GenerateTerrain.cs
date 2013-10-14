@@ -23,6 +23,7 @@ public class GenerateTerrain : MonoBehaviour
 		m_surfaceSeed = Random.Range (0, 65000);
 		//Make 2 perlin noise objects, one is used for the surface and the other for the caves
 		PerlinNoise m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
+		VoronoiNoise m_voronoi = new VoronoiNoise(m_surfaceSeed);
 		player = GameObject.FindWithTag ("Player").transform;
 	//	PerlinNoise  m_cavePerlin = new PerlinNoise(m_caveSeed);
 	
@@ -49,7 +50,7 @@ public class GenerateTerrain : MonoBehaviour
 					//Create the voxel object
 					m_voxelChunk[x,y,z] = new VoxelChunk(pos+offset, m_voxelWidth, m_voxelHeight, m_voxelLength, m_surfaceLevel);
 					//Create the voxel data
-					m_voxelChunk[x,y,z].CreateVoxels(m_surfacePerlin);//, m_cavePerlin);
+					m_voxelChunk[x,y,z].CreateVoxels(m_surfacePerlin, m_voronoi);//, m_cavePerlin);
 					//Smooth the voxels, is optional but I think it looks nicer
 				//	m_voxelChunk[x,y,z].SmoothVoxels();
 					//Create the normals. This will create smoothed normal.
@@ -352,6 +353,7 @@ public class GenerateTerrain : MonoBehaviour
 				//Debug.Log ("N Trafilem w: " + hit.transform.GetComponent<ChunkData>().m_pos);
 				lastPosN = hit.transform.GetComponent<ChunkData>().m_pos;
 				PerlinNoise m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(m_surfaceSeed);
 				Vector3 offset = new Vector3(m_chunksX*m_voxelWidth*0.5f, -(m_chunksY-m_chunksAbove0)*m_voxelHeight, m_chunksZ*m_voxelLength*0.5f);
 			//	Vector3 pos = lastPosN + new Vector3(108, 0, 0);
 				m_voxelChunktemp = new VoxelChunk[1, 2, 1];
@@ -364,7 +366,7 @@ public class GenerateTerrain : MonoBehaviour
 							Vector3 pos = new Vector3((x+lastPosN.x)*m_voxelWidth/32, y*m_voxelHeight, z*m_voxelLength);
 							Debug.Log ("POS: " + (pos + offset) + " / "  + (lastPosN + pos) + " / " + lastPosN);
 							m_voxelChunktemp[x, y, z] = new VoxelChunk(lastPosN + pos, m_voxelWidth, m_voxelHeight, m_voxelLength, m_surfaceLevel);
-							m_voxelChunktemp[x, y, z].CreateVoxels (m_surfacePerlin);
+							m_voxelChunktemp[x, y, z].CreateVoxels (m_surfacePerlin, m_voronoi);
 							m_voxelChunktemp[x, y, z].CreateMesh (m_material);
 						}
 					}
@@ -395,6 +397,7 @@ public class GenerateTerrain : MonoBehaviour
 				//Debug.Log ("N Trafilem w: " + hit.transform.GetComponent<ChunkData>().m_pos);
 				lastPosNE = hit.transform.GetComponent<ChunkData>().m_pos;
 				PerlinNoise m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(m_surfaceSeed);
 				Vector3 offset = new Vector3(m_chunksX*m_voxelWidth*0.5f, -(m_chunksY-m_chunksAbove0)*m_voxelHeight, m_chunksZ*m_voxelLength*0.5f);
 			//	Vector3 pos = lastPosN + new Vector3(108, 0, 0);
 				m_voxelChunktemp = new VoxelChunk[1, 2, 1];
@@ -407,7 +410,7 @@ public class GenerateTerrain : MonoBehaviour
 							Vector3 pos = new Vector3((x+lastPosNE.x)*m_voxelWidth/32, y*m_voxelHeight, (z+lastPosNE.z)*m_voxelLength);
 							//Debug.Log ("POS: " + (pos + offset) + " / "  + (lastPosNE + pos) + " / " + lastPosN);
 							m_voxelChunktemp[x, y, z] = new VoxelChunk(lastPosNE + pos, m_voxelWidth, m_voxelHeight, m_voxelLength, m_surfaceLevel);
-							m_voxelChunktemp[x, y, z].CreateVoxels (m_surfacePerlin);
+							m_voxelChunktemp[x, y, z].CreateVoxels (m_surfacePerlin, m_voronoi);
 							m_voxelChunktemp[x, y, z].CreateMesh (m_material);
 						}
 					}

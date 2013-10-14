@@ -25,9 +25,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x+(i*8)).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x+8*i+1, chunk.m_pos.y+1, chunk.m_pos.z+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -35,9 +36,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x+8*i).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z + 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x+8*i+1, chunk.m_pos.y+1, chunk.m_pos.z+8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -45,9 +47,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x+8*i).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z - 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x+8*i+1, chunk.m_pos.y+1, chunk.m_pos.z-8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -55,9 +58,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x-8*i).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x-8*i+1, chunk.m_pos.y+1, chunk.m_pos.z+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -65,9 +69,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x-8*i).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z + 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x-8*i+1, chunk.m_pos.y+1, chunk.m_pos.z+8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -75,9 +80,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x-8*i).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z - 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x-8*i+1, chunk.m_pos.y+1, chunk.m_pos.z-8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -85,9 +91,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z + 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x+1, chunk.m_pos.y+1, chunk.m_pos.z+8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
@@ -95,9 +102,10 @@ public class PlayerData : MonoBehaviour {
 			if(!GameObject.Find ("Voxel Mesh " + (chunk.m_pos.x).ToString() + " " + (chunk.m_pos.y).ToString() + " " + (chunk.m_pos.z - 8*i).ToString()))
 			{
 				PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
+				VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 				Vector3 pos = new Vector3(chunk.m_pos.x+1, chunk.m_pos.y+1, chunk.m_pos.z-8*i+1);
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
-				m_voxelChunktemp.CreateVoxels (m_surfacePerlin);
+				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
 				//chunk.bOnce = true;
 			}
