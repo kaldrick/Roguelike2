@@ -60,7 +60,7 @@ ENDCG
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }
 			Cull Front
-			ZWrite On
+			ZWrite Off
 			ColorMask RGB
 			Blend SrcAlpha OneMinusSrcAlpha
 			//Offset 50,50
@@ -95,7 +95,7 @@ ENDCG
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }
 			Cull Front
-			ZWrite On
+			ZWrite Off
 			ColorMask RGB
 			Blend SrcAlpha OneMinusSrcAlpha
 

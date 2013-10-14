@@ -14,7 +14,8 @@ Shader "Custom/HeightShader" {
     SubShader {
          Tags {"RenderType"="Opaque"  }
          LOD 200
-
+         Cull Off
+		 Offset 0, -1
 		
  		 CGPROGRAM
          #pragma surface surf SimpleSpecular vertex:vert noambient
@@ -38,7 +39,7 @@ Shader "Custom/HeightShader" {
 	          float spec = pow (nh, 48.0);
 	
 	          half4 c;
-	          if(s.Alpha < 1)
+	          if(s.Alpha < 0.9)
 	          {
 	          	c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec) * (atten * 2);
 	          }
@@ -70,7 +71,6 @@ Shader "Custom/HeightShader" {
           if(diff < _LowRivers) 
           {
           	v.color = lerp(_LowRiversColor, _LowColor, cFactor);
-          	v.vertex.y -= 0.3;
           } 
          	v.color = v.color * 1.2;
          } 
@@ -85,7 +85,7 @@ Shader "Custom/HeightShader" {
 		 
 		    Cull Front
 		    Lighting Off
-		 
+		 	ZWrite On
 		    CGPROGRAM
 		    #pragma vertex vert
 		    #pragma fragment frag
@@ -107,13 +107,13 @@ Shader "Custom/HeightShader" {
 		    v2f vert (a2v v)
 		    {
 		        v2f o;
-		        o.pos = mul( UNITY_MATRIX_MVP, v.vertex + (float4(v.normal,0) * _Outline)); 
+		        o.pos = mul( UNITY_MATRIX_MVP, v.vertex + (float4(v.normal,0) * _Outline));
 		        return o;
 		    }
 		 
 		    float4 frag (v2f IN) : COLOR
 		    {
-		        return float(0);
+		        return float4(0);
 		    }
 		 
 		    ENDCG
@@ -121,5 +121,5 @@ Shader "Custom/HeightShader" {
 		}
        }
     
-    FallBack "Diffuse"
+    FallBack "VertexLit"
 }

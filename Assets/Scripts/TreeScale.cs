@@ -12,7 +12,7 @@ public class TreeScale : MonoBehaviour {
 	void CheckGround()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 60f))
+		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 120f))
 		{
 			transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 			renderer.enabled = true;
