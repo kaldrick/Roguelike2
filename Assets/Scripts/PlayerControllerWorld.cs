@@ -12,7 +12,6 @@ public class PlayerControllerWorld : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rigidbody.freezeRotation = true;
-		Physics.gravity = new Vector3(0f, -1024.0f, 0f);
 		normalCam.enabled = true; 
 		overTopCam.enabled = false;
 		camPos = new Vector3(0, 32, -8);
@@ -79,7 +78,15 @@ public class PlayerControllerWorld : MonoBehaviour {
 		camRot.x = Mathf.Lerp (normalCam.transform.localEulerAngles.x, rotX, Time.deltaTime * 4.5f);
 		normalCam.transform.localPosition = camPos;
 		normalCam.transform.localEulerAngles = camRot;	
-		rigidbody.velocity = transform.forward * moveInput;
+		if(moveInput != 0)
+		{
+			float x,z;
+			Vector3 test;
+			x = transform.forward.x * moveInput;
+			z = transform.forward.z * moveInput;
+			test = new Vector3(x, rigidbody.velocity.y, z);
+			rigidbody.velocity = test;
+		}
 		transform.Rotate(new Vector3(0, rotationInput, 0));
 	}
 	void OnCollisionEnter(Collision other)

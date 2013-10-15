@@ -1,12 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Plugins\VoronoiNoise.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shaders\VertexShader.shader">
     <Files>
+      <File FileName="Assets\Scripts\PlayerControllerWorld.cs" Line="88" Column="30" />
       <File FileName="Assets\Shaders\shader.shader" Line="1" Column="1" />
-      <File FileName="Assets\Shaders\VertexShader.shader" Line="42" Column="28" />
-      <File FileName="Assets\Shaders\outline.shader" Line="63" Column="14" />
-      <File FileName="Assets\Plugins\VoronoiNoise.cs" Line="266" Column="35" />
-      <File FileName="Assets\Scripts\TreeScale.cs" Line="15" Column="68" />
+      <File FileName="Assets\Shaders\VertexShader.shader" Line="15" Column="37" />
+      <File FileName="Assets\Shaders\outline.shader" Line="42" Column="10" />
+      <File FileName="Assets\Scripts\TreeScale.cs" Line="18" Column="169" />
+      <File FileName="Assets\Scripts\VoxelChunk.cs" Line="217" Column="32" />
+      <File FileName="Assets\Scripts\ChunkData.cs" Line="19" Column="5" />
+      <File FileName="Assets\Scripts\PlayerData.cs" Line="179" Column="70" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

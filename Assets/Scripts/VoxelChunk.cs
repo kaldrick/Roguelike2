@@ -8,6 +8,8 @@ public class VoxelChunk
 	Vector3 rowNumber;
 	GameObject m_mesh;
 	float m_surfaceLevel;
+	public float test;
+	public float dupa;
 	
 	int[,] m_sampler = new int[,] 
 	{
@@ -59,7 +61,16 @@ public class VoxelChunk
 		//The last value (8.0f) is the amp that defines (roughly) the maximum 
 		//and minimum vaule the ground varies from the surface level
 		//return perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f);
-		return voronoi.FractalNoise2D(x, z, 4, 48.0f, 8.0f);
+		test = voronoi.FractalNoise2D(x, z, 8, 32.0f, 8.0f);
+		if(test > 1.85f)
+		{
+			return Mathf.Min (1.85f, test) + test/3f;
+		}
+		else
+		{
+			return test;
+		}
+		//return Mathf.Min (2.75f,test);	
 	}
 	
 	float SampleCaves(float x, float y, float z, PerlinNoise perlin)
@@ -104,7 +115,6 @@ public class VoxelChunk
 					//If we take the heigth value and add the world
 					//the voxels will change from positiove to negative where the surface cuts through the voxel chunk
 					m_voxels[x,y,z] = Mathf.Clamp(ht + worldY , -1.0f, 1.0f);
-					
 					//float caveHt = SampleCaves(worldX, worldY, worldZ, cavePerlin);
 					
 					//This fades the voxel value so the caves never appear more than 16 units from
@@ -113,7 +123,7 @@ public class VoxelChunk
 					
 					//m_voxels[x,y,z] += caveHt * fade;
 					
-					m_voxels[x,y,z] = Mathf.Clamp(m_voxels[x,y,z], -1.0f, 1.0f);
+				//	m_voxels[x,y,z] = Mathf.Clamp(m_voxels[x,y,z], -1.0f, 1.0f);
 				}
 			}
 		}
@@ -208,6 +218,7 @@ public class VoxelChunk
 		m_mesh.GetComponent<MeshFilter>().mesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);
+		m_mesh.isStatic = true;
 		MeshCollider collider = m_mesh.AddComponent<MeshCollider>();
 		collider.sharedMesh = mesh;
 		

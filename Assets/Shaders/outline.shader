@@ -1,4 +1,4 @@
-﻿Shader "Outlined/Diffuse" {
+Shader "Outlined/Diffuse" {
 	Properties {
 		_Color ("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor ("Outline Color", Color) = (0,0,0,1)
@@ -30,13 +30,14 @@ v2f vert(appdata v) {
 	float3 norm   = mul ((float3x3)UNITY_MATRIX_IT_MV, v.normal);
 	float2 offset = TransformViewToProjection(norm.xy);
 
-	o.pos.xy += offset * o.pos.z * _Outline;
+	o.pos.xy += offset/2 * o.pos.z * _Outline;
 	o.color = _OutlineColor;
 	return o;
 }
 ENDCG
 
 	SubShader {
+
 		//Tags {"Queue" = "Geometry+100" }
 CGPROGRAM
 #pragma surface surf Lambert
@@ -60,7 +61,8 @@ ENDCG
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }
 			Cull Front
-			ZWrite Off
+			ZTest LEqual
+			ZWrite On
 			ColorMask RGB
 			Blend SrcAlpha OneMinusSrcAlpha
 			//Offset 50,50
@@ -95,7 +97,8 @@ ENDCG
 			Name "OUTLINE"
 			Tags { "LightMode" = "Always" }
 			Cull Front
-			ZWrite Off
+			ZTest LEqual
+			ZWrite On
 			ColorMask RGB
 			Blend SrcAlpha OneMinusSrcAlpha
 

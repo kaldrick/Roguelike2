@@ -12,7 +12,7 @@ Shader "Custom/HeightShader" {
        _Outline ("Outline", Range(0, 0.15)) = 0.08
     }
     SubShader {
-         Tags {"RenderType"="Opaque"  }
+         Tags {"RenderType"="Opaque"}
          LOD 200
          Cull Off
 		 Offset 0, -1

@@ -14,9 +14,15 @@ public class ChatkaScale : MonoBehaviour {
 		RaycastHit hit;
 		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 60f))
 		{
-			transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
-			renderer.enabled = true;
-			//Debug.Log (hit.point.y);
+			if(hit.point.y < -75f || hit.transform.name == "Tree(Clone)" || hit.transform.name == "chatka(Clone)")
+			{
+				Destroy (gameObject);
+			}
+			else
+			{
+				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+				renderer.enabled = true;
+			}
 		}
 		else
 		{
