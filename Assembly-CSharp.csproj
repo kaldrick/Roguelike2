@@ -37,10 +37,10 @@
     <Reference Include="System.XML" />
 	<Reference Include="System.Core" />
 	<Reference Include="UnityEngine">
-	  <HintPath>C:/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>C:/Praca/Unity/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>C:/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>C:/Praca/Unity/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
@@ -99,8 +99,13 @@
      <Compile Include="Assets\AstarPathfindingProject\Utilities\SizeProfiler.cs" />
      <Compile Include="Assets\AstarPathfindingProject\Utilities\UnityReferenceHelper.cs" />
      <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
+     <Compile Include="Assets\Boomlagoon\JSON\JSONObject.cs" />
+     <Compile Include="Assets\Boomlagoon\JSON\TestScene\JSONObjectTester.cs" />
+     <Compile Include="Assets\CheckChildren.cs" />
      <Compile Include="Assets\DayTimeTest.cs" />
-     <Compile Include="Assets\Demo.cs" />
+     <Compile Include="Assets\PlayerPrefsPlus\Demo.cs" />
+     <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsArray.cs" />
+     <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsPlus.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Billow.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Checker.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Const.cs" />
@@ -135,41 +140,72 @@
      <Compile Include="Assets\Resources\LibNoise.Unity\Operator\Turbulence.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Properties\AssemblyInfo.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Utils.cs" />
-     <Compile Include="Assets\Scripts\AABB.cs" />
-     <Compile Include="Assets\Scripts\AIController.cs" />
-     <Compile Include="Assets\Scripts\Bullet.cs" />
-     <Compile Include="Assets\Scripts\CameraMovement.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Saving and loading a scene\SaveSceneComponent.cs" />
      <Compile Include="Assets\Scripts\ChatkaScale.cs" />
      <Compile Include="Assets\Scripts\ChunkData.cs" />
      <Compile Include="Assets\Scripts\CombineChildren.cs" />
-     <Compile Include="Assets\Scripts\DungeonGenerator.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\AABB.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\AIController.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\CameraMovement.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\DungeonGenerator.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\MeshBuilder.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\MonoSingleton.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\QuadTree.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\Room.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\RoomXYContainer.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\SimplexNoiseGenerator.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\Tile.cs" />
+     <Compile Include="Assets\Scripts\Dungeon\XY.cs" />
      <Compile Include="Assets\Scripts\GenerateTerrain.cs" />
-     <Compile Include="Assets\Scripts\MeshBuilder.cs" />
-     <Compile Include="Assets\Scripts\MonoSingleton.cs" />
-     <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PlayerControllerWorld.cs" />
      <Compile Include="Assets\Scripts\PlayerData.cs" />
-     <Compile Include="Assets\Scripts\QuadTree.cs" />
      <Compile Include="Assets\Scripts\RendererExtensions.cs" />
-     <Compile Include="Assets\Scripts\Room.cs" />
-     <Compile Include="Assets\Scripts\RoomXYContainer.cs" />
+     <Compile Include="Assets\Scripts\SaveMenu.cs" />
      <Compile Include="Assets\Scripts\SetGround.cs" />
-     <Compile Include="Assets\Scripts\SimplexNoiseGenerator.cs" />
-     <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\TreeCheck.cs" />
      <Compile Include="Assets\Scripts\TreeScale.cs" />
      <Compile Include="Assets\Scripts\VoxelChunk.cs" />
-     <Compile Include="Assets\Scripts\WorldGenerator.cs" />
-     <Compile Include="Assets\Scripts\XY.cs" />
+     <Compile Include="Assets\SomeOtherValues.cs" />
+     <Compile Include="Assets\TestTransformSpeed.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\AddSomeForce.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\AdditionalData.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\AdditionalDataStorage.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\ArrayOfPrefabs.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\CentreAndPointMe.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\ChangeColor.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\ColorMe.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\CreateChildSphere.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\CreateTexture.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\DeleteComponent.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\DeletedComponent.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\IsDeserializing.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\KeepAReference.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\OpenDoor.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\RenameObject.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\SaveAndLoad.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\SaveAndLoadToServer.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\SaveAndReload.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\ScaleObject.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\SwitchMesh.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\TestCoroutines.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\TestJSON.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\TestLoading.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\TestSerialization.cs" />
+     <Compile Include="Assets\UnitySerializer\Scripts\VariablesToSave.cs" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Boomlagoon\JSON\Readme.txt" />
      <None Include="Assets\AstarPathfindingProject\Plugins\dependencies.txt" />
      <None Include="Assets\Shaders\VertexShader.shader" />
      <None Include="Assets\sky5X\README.txt" />
      <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
+     <None Include="Assets\Plugins\whydoidoit.com\license.txt" />
      <None Include="Assets\Shaders\VertexColoredDiffuse.shader" />
      <None Include="Assets\AstarPathfindingProject\Readme.txt" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.LESSER.txt" />
@@ -180,6 +216,7 @@
      <None Include="Assets\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
      <None Include="Assets\Shaders\Normal-Diffuse.shader" />
      <None Include="Assets\Shaders\outline.shader" />
+     <None Include="Assets\UnitySerializer\readme.txt" />
      <None Include="Assets\AstarPathfindingProject\link.xml" />
  <Reference Include="Ionic.Zip.Reduced">
  <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Ionic.Zip.Reduced.dll</HintPath>

@@ -18,40 +18,42 @@ static public class MarchingCubes
 	
 	static public Mesh CreateMesh(float[,,] voxels, int start = 0, int end = 0)
 	{
-
+		
 		List<Vector3> verts = new List<Vector3>();
 		List<int> index = new List<int>();
 		
 		float[] cube = new float[8];
-		
-		for(int x = start; x < voxels.GetLength(0)-1-end; x++)
-		{
-			for(int y = start; y < voxels.GetLength(1)-1-end; y++)
-			{
-				for(int z = start; z < voxels.GetLength(2)-1-end; z++)
-				{
-					//Get the values in the 8 neighbours which make up a cube
-					FillCube(x,y,z,voxels,cube);
-					//Perform algorithm
-					Mode_Func(new Vector3(x,y,z), cube, verts, index);
-				}
-			}
-		}
-		
-		if(verts.Count > 65000)
-		{
-			//If you get this error its means that the voxels array contaions to much information and
-			//a mesh larger than 65000 verts is need to represent it. You can fix this by using a smaller arrays of voxel,
-			//make less 'noisey' data, or manually split up the mesh into sub meshes.
-			Debug.Log("MarchingCubes::CreateMesh - Number of mesh verts greater than 65000. Can not create mesh");
-			return null;
-		}
-		
 		Mesh mesh = new Mesh();
 
-		mesh.vertices = verts.ToArray();		
-		mesh.triangles = index.ToArray();
-		mesh.uv = new Vector2[mesh.vertices.Length];
+			
+			for(int x = start; x < voxels.GetLength(0)-1-end; x++)
+			{
+				for(int y = start; y < voxels.GetLength(1)-1-end; y++)
+				{
+					for(int z = start; z < voxels.GetLength(2)-1-end; z++)
+					{
+						//Get the values in the 8 neighbours which make up a cube
+						FillCube(x,y,z,voxels,cube);
+						//Perform algorithm
+						Mode_Func(new Vector3(x,y,z), cube, verts, index);
+					}
+				}
+			}
+			
+			if(verts.Count > 65000)
+			{
+				//If you get this error its means that the voxels array contaions to much information and
+				//a mesh larger than 65000 verts is need to represent it. You can fix this by using a smaller arrays of voxel,
+				//make less 'noisey' data, or manually split up the mesh into sub meshes.
+				Debug.Log("MarchingCubes::CreateMesh - Number of mesh verts greater than 65000. Can not create mesh");
+				return null;
+			}
+			
+			
+	
+			mesh.vertices = verts.ToArray();		
+			mesh.triangles = index.ToArray();
+			mesh.uv = new Vector2[mesh.vertices.Length];
 		return mesh;
 	}
 	
@@ -86,7 +88,6 @@ static public class MarchingCubes
 	
 	    //If the cube is entirely inside or outside of the surface, then there will be no intersections
 	    if(edgeFlags == 0) return;
-	
 	    //Find the point of intersection of the surface with each edge
 	    for(i = 0; i < 12; i++)
 	    {
@@ -113,6 +114,7 @@ static public class MarchingCubes
                 vert = triangleConnectionTable[flagIndex,3*i+j];
 				indexList.Add(idx+windingOrder[j]);
 				vertList.Add(edgeVertex[vert]);
+			
             }
 	    }
 	}

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class VoronoiNoise
+public class VoronoiNoise : ThreadedJob
 {
 	//Function delegates, makes using functions pointers easier
 	private delegate float DISTANCE_FUNC2(Vector2 p1, Vector2 p2);

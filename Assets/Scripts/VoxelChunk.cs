@@ -2,15 +2,16 @@ using UnityEngine;
 using System.Collections;
 public class VoxelChunk
 {
-	float[,,] m_voxels;
+	public float[,,] m_voxels;
 	Vector3[,,] m_normals;
-	Vector3 m_pos;
+	public Vector3 m_pos;
 	Vector3 rowNumber;
 	GameObject m_mesh;
 	float m_surfaceLevel;
 	public float test;
 	public float dupa;
-	
+	public SaveSceneComponent saveScene;
+	public bool bDodane = false;
 	int[,] m_sampler = new int[,] 
 	{
 		{1,-1,0}, {1,-1,1}, {0,-1,1}, {-1,-1,1}, {-1,-1,0}, {-1,-1,-1}, {0,-1,-1}, {1,-1,-1}, {0,-1,0},
@@ -61,7 +62,7 @@ public class VoxelChunk
 		//The last value (8.0f) is the amp that defines (roughly) the maximum 
 		//and minimum vaule the ground varies from the surface level
 		//return perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f);
-		test = voronoi.FractalNoise2D(x, z, 8, 32.0f, 8.0f);
+		test = voronoi.FractalNoise2D(x, z, 8, 32.0f, 8.0f) + perlin.FractalNoise2D(x, z, 12, 80.0f, 8.0f)/2;
 		if(test > 1.85f)
 		{
 			return Mathf.Min (1.85f, test) + test/3f;
@@ -161,7 +162,11 @@ public class VoxelChunk
 		
 		Mesh mesh = MarchingCubes.CreateMesh(m_voxels,0,0);
 		if(mesh == null) return;
-		
+		if(!bDodane)
+		{
+			saveScene = GameObject.Find("SaveTracker").GetComponent<SaveSceneComponent>();
+			saveScene.pos.Add (new Vector3(m_pos.x, m_pos.y, m_pos.z));
+		}
 		int size = mesh.vertices.Length;
 		
 		if(m_normals != null)
@@ -207,21 +212,24 @@ public class VoxelChunk
 		//May as well store in colors 
 		mesh.colors = control;
 		*/
-		m_mesh = new GameObject("Voxel Mesh " + m_pos.x.ToString() + " " + m_pos.y.ToString() + " " + m_pos.z.ToString());
+		m_mesh = GameObject.Instantiate (GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().voxelPrefab) as GameObject;
+		m_mesh.name = "Voxel Mesh " + m_pos.x.ToString() + " " + m_pos.y.ToString() + " " + m_pos.z.ToString();
+		
 		m_mesh.AddComponent<ChunkData>();
 		m_mesh.GetComponent<ChunkData>().m_pos = m_pos;
+		m_mesh.GetComponent<ChunkData>().bDodane = bDodane;
 		m_mesh.transform.parent = GameObject.Find ("Terrain").transform;
-		m_mesh.AddComponent<MeshFilter>();
+	//	m_mesh.AddComponent<MeshFilter>();
 		m_mesh.AddComponent<MeshRenderer>();
 		m_mesh.renderer.material = mat;
 		m_mesh.renderer.castShadows = false;
-		m_mesh.GetComponent<MeshFilter>().mesh = mesh;
+		m_mesh.GetComponent<MeshFilter>().sharedMesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);
 		m_mesh.isStatic = true;
-		MeshCollider collider = m_mesh.AddComponent<MeshCollider>();
+		MeshCollider collider = m_mesh.GetComponent<MeshCollider>();
 		collider.sharedMesh = mesh;
-		
+
 		//Debug.Log("Create mesh time = " + (Time.realtimeSinceStartup-startTime).ToString() );
 	}
 }

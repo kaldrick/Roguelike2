@@ -9,34 +9,34 @@ public class ChunkData : MonoBehaviour {
 	public int i = 0;
 	public bool bUsed = false;
 	public bool bRiver = false;
+	public bool bDodane = false;
 	public List<float> test = new List<float>();
+	public int randomTree;
+	public float randomTreeMoveX, randomTreeMoveZ;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("PlayerWorld");
-		for(int i = 1; i < 20; i++)
+		if(!bDodane)
 		{
-			if(Random.Range (1,15) == 3)
+			for(int i = 1; i < 20; i++)
 			{
-				if(GameObject.Find ("Trees"+i))
+				if(Random.Range (1,15) == 3)
 				{
-					GameObject lookTree = GameObject.Instantiate (player.GetComponent<PlayerData>().tree,new Vector3(transform.position.x + Random.Range(-20f, 20f), 30f, transform.position.z + Random.Range (-20f, 20f)), player.GetComponent<PlayerData>().tree.transform.rotation) as GameObject;
-					lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
-				//Debug.Log (GameObject.Find ("Trees"+i));
-					lookTree.transform.parent = GameObject.Find ("Trees"+i).transform;
-					player.GetComponent<PlayerData>().trees.Add (lookTree);
-				//	GameObject.Find ("Trees" + i).GetComponent<CombineChildren>().CallCombineOnAllChilds();
+						GameObject lookTree = GameObject.Instantiate (player.GetComponent<PlayerData>().tree,new Vector3(transform.position.x, 30f, transform.position.z), player.GetComponent<PlayerData>().tree.transform.rotation) as GameObject;
+					//	lookTree.transform.Rotate (new Vector3(0, Random.Range (0f, 360f), 0));
+					//Debug.Log (GameObject.Find ("Trees"+i));
+						lookTree.transform.parent = GameObject.Find ("TreeHolder").transform;
+						player.GetComponent<PlayerData>().trees.Add (lookTree);	
+					//	GameObject.Find ("Trees" + i).GetComponent<CombineChildren>().CallCombineOnAllChilds();
 				}
-				else
+			    if(Random.Range (1, 55) == 3)
 				{
-					return;
+					GameObject lookVillage = GameObject.Instantiate (player.GetComponent<PlayerData>().village,new Vector3(transform.position.x, 0, transform.position.z), player.GetComponent<PlayerData>().village.transform.rotation) as GameObject;
+					lookVillage.transform.parent = GameObject.Find ("Chatki").transform;
+					player.GetComponent<PlayerData>().numberOfChatki++;
 				}
 			}
-			else if(Random.Range (1, 55) == 3)
-			{
-				GameObject lookVillage = GameObject.Instantiate (player.GetComponent<PlayerData>().village,new Vector3(transform.position.x + Random.Range(-120f, 120f), 0, transform.position.z + Random.Range (-120f, 120f)), player.GetComponent<PlayerData>().village.transform.rotation) as GameObject;
-				lookVillage.transform.parent = GameObject.Find ("Chatki").transform;
-			}
-		}
+		}		
 	}
 	
 	// Update is called once per frame
