@@ -12,6 +12,7 @@ public class VoxelChunk
 	public float dupa;
 	public SaveSceneComponent saveScene;
 	public bool bDodane = false;
+	public float ht, groundHt, mountainHt, worldY;
 	int[,] m_sampler = new int[,] 
 	{
 		{1,-1,0}, {1,-1,1}, {0,-1,1}, {-1,-1,1}, {-1,-1,0}, {-1,-1,-1}, {0,-1,-1}, {1,-1,-1}, {0,-1,0},
@@ -94,7 +95,6 @@ public class VoxelChunk
 		int w = m_voxels.GetLength(0);
 		int h = m_voxels.GetLength(1);
 		int l = m_voxels.GetLength(2);
-		
 		for(int x = 0; x < w; x++)
 		{
 			for(int z = 0; z < l; z++)
@@ -102,16 +102,14 @@ public class VoxelChunk
 				//world pos is the voxels position plus the voxel chunks position
 				float worldX = x+m_pos.x;
 				float worldZ = z+m_pos.z;
+				 groundHt = SampleGround(worldX, worldZ, surfacePerlin, voronoiNoise);
 				
-				float groundHt = SampleGround(worldX, worldZ, surfacePerlin, voronoiNoise);
-				
-				float mountainHt = SampleMountains(worldX, worldZ, surfacePerlin);
-				
-				float ht = mountainHt + groundHt;
+				 mountainHt = SampleMountains(worldX, worldZ, surfacePerlin);
+				 ht = mountainHt + groundHt;
 		
 				for(int y = 0; y < h; y++)
 				{
-					float worldY = y+m_pos.y-m_surfaceLevel;
+					 worldY = y+m_pos.y-m_surfaceLevel;
 				
 					//If we take the heigth value and add the world
 					//the voxels will change from positiove to negative where the surface cuts through the voxel chunk
@@ -128,7 +126,6 @@ public class VoxelChunk
 				}
 			}
 		}
-		
 		//Debug.Log("Create voxels time = " + (Time.realtimeSinceStartup-startTime).ToString() );
 		
 	}
@@ -220,9 +217,9 @@ public class VoxelChunk
 		m_mesh.GetComponent<ChunkData>().bDodane = bDodane;
 		m_mesh.transform.parent = GameObject.Find ("Terrain").transform;
 	//	m_mesh.AddComponent<MeshFilter>();
-		m_mesh.AddComponent<MeshRenderer>();
-		m_mesh.renderer.material = mat;
-		m_mesh.renderer.castShadows = false;
+	//	m_mesh.AddComponent<MeshRenderer>();
+	//	m_mesh.renderer.material = mat;
+	//	m_mesh.renderer.castShadows = false;
 		m_mesh.GetComponent<MeshFilter>().sharedMesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);

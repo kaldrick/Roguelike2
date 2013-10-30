@@ -25,7 +25,6 @@ static public class MarchingCubes
 		float[] cube = new float[8];
 		Mesh mesh = new Mesh();
 
-			
 			for(int x = start; x < voxels.GetLength(0)-1-end; x++)
 			{
 				for(int y = start; y < voxels.GetLength(1)-1-end; y++)
@@ -39,7 +38,6 @@ static public class MarchingCubes
 					}
 				}
 			}
-			
 			if(verts.Count > 65000)
 			{
 				//If you get this error its means that the voxels array contaions to much information and

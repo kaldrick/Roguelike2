@@ -9,6 +9,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 	public GameObject cube2;
 	public float posY, posZ, rotX, prevPosY;
 	public Vector3 camPos, camRot, startPos, startRot;
+	public GameObject trees, chatys;
 	// Use this for initialization
 	void Start () {
 		rigidbody.freezeRotation = true;
@@ -19,6 +20,8 @@ public class PlayerControllerWorld : MonoBehaviour {
 		posY = 32f;
 		posZ = -8f;
 		rotX = 60f;
+		trees = GameObject.Find ("TreeHolder");
+		chatys = GameObject.Find ("Chatki");
 	}
 	
 	// Update is called once per frame

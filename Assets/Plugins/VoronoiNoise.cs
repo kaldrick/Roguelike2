@@ -8,6 +8,12 @@ public class VoronoiNoise : ThreadedJob
 	private delegate float DISTANCE_FUNC3(Vector3 p1, Vector3 p2);
 	private delegate float COMBINE_FUNC(float[] arr);
 	public   int seed;
+			//Declare some values for later use
+		uint lastRandom, numberFeaturePoints;
+		Vector2 randomDiff, featurePoint;
+		int cubeX, cubeY, evalCubeX, evalCubeY;
+		
+		float[] distanceArray = new float[3];
 	//Function pointer to active distance function and combination function
 	private   DISTANCE_FUNC2 DistanceFunc2 = EuclidianDistanceFunc2;
 	private   DISTANCE_FUNC3 DistanceFunc3 = EuclidianDistanceFunc3;
@@ -38,7 +44,7 @@ public class VoronoiNoise : ThreadedJob
 		return sum;
 	}
 	
-	//Sample 3D fractal noise
+/*	//Sample 3D fractal noise
 	public   float FractalNoise3D(float x, float y, float z, int octNum, float frq, float amp)
 	{
 		float gain = 1.0f;
@@ -50,26 +56,19 @@ public class VoronoiNoise : ThreadedJob
 			gain *= 2.0f;
 		}
 		return sum;
-	}
+	}*/
 	
 	//Sample single octave of 2D noise
 	private   float Noise2D(Vector2 input)
 	{
-		//Declare some values for later use
-		uint lastRandom, numberFeaturePoints;
-		Vector2 randomDiff, featurePoint;
-		int cubeX, cubeY;
-		
-		float[] distanceArray = new float[3];
 
+	
 		//Initialize values in distance array to large values
 		for (int i = 0; i < distanceArray.Length; i++)
 			distanceArray[i] = 6666;
-
 		//1. Determine which cube the evaluation point is in
-		int evalCubeX = (int)Mathf.Floor(input.x);
-		int evalCubeY = (int)Mathf.Floor(input.y);
-
+		evalCubeX = (int)Mathf.Floor(input.x);
+		evalCubeY = (int)Mathf.Floor(input.y);
 		for (int i = -1; i < 2; ++i)
 		{
 			for (int j = -1; j < 2; ++j)
@@ -79,7 +78,6 @@ public class VoronoiNoise : ThreadedJob
 
 				//2. Generate a reproducible random number generator for the cube
 				lastRandom = lcgRandom(hash((uint)(cubeX + seed), (uint)(cubeY)));
-			
 				//3. Determine how many feature points are in the cube
 				numberFeaturePoints = probLookup(lastRandom);
 				//4. Randomly place the feature points in the cube
@@ -90,9 +88,7 @@ public class VoronoiNoise : ThreadedJob
 
 					lastRandom = lcgRandom(lastRandom);
 					randomDiff.y = (float)lastRandom / 0x100000000;
-
 					featurePoint = new Vector2(randomDiff.x + (float)cubeX, randomDiff.y + (float)cubeY);
-
 					//5. Find the feature point closest to the evaluation point. 
 					//This is done by inserting the distances to the feature points into a sorted list
 					insert(distanceArray, DistanceFunc2(input, featurePoint));
@@ -101,11 +97,10 @@ public class VoronoiNoise : ThreadedJob
 				// This is done by repeating steps 1 through 5 above for each neighboring cube
 			}
 		}
-
 		return Mathf.Clamp01(CombineFunc(distanceArray));
 	}
 	
-	//Sample single octave of 3D noise
+/*	//Sample single octave of 3D noise
 	private   float Noise3D(Vector3 input)
 	{
 		//Declare some values for later use
@@ -165,7 +160,7 @@ public class VoronoiNoise : ThreadedJob
 
 		return Mathf.Clamp01(CombineFunc(distanceArray));
 	}
-	
+	*/
 	//2D distance functions
 	private  static float EuclidianDistanceFunc2(Vector2 p1, Vector2 p2)
 	{

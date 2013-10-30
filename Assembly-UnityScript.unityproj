@@ -51,10 +51,6 @@
      <Compile Include="Assets\SomeValues.js" />
      <Compile Include="Assets\ToD\Tod.js" />
      <Compile Include="Assets\ToD\skydome\scripts\skydomescript.js" />
-     <Compile Include="Assets\UnitySerializer\Scripts\JSONPauseMenu.js" />
-     <Compile Include="Assets\UnitySerializer\Scripts\Movement.js" />
-     <Compile Include="Assets\UnitySerializer\Scripts\PauseMenu.js" />
-     <Compile Include="Assets\UnitySerializer\Scripts\Spawner.js" />
      <Compile Include="Assets\mVertexPaint10\colorpicker.js" />
      <Compile Include="Assets\mVertexPaint10\mVertexPaint1.js" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
@@ -68,7 +64,6 @@
      <None Include="Assets\Shaders\VertexShader.shader" />
      <None Include="Assets\sky5X\README.txt" />
      <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
-     <None Include="Assets\Plugins\whydoidoit.com\license.txt" />
      <None Include="Assets\Shaders\VertexColoredDiffuse.shader" />
      <None Include="Assets\AstarPathfindingProject\Readme.txt" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.LESSER.txt" />
@@ -79,7 +74,6 @@
      <None Include="Assets\AstarPathfindingProject\Plugins\JsonFx\Readme.txt" />
      <None Include="Assets\Shaders\Normal-Diffuse.shader" />
      <None Include="Assets\Shaders\outline.shader" />
-     <None Include="Assets\UnitySerializer\readme.txt" />
      <None Include="Assets\AstarPathfindingProject\link.xml" />
  <Reference Include="Ionic.Zip.Reduced">
  <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Ionic.Zip.Reduced.dll</HintPath>

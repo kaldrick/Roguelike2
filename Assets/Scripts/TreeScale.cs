@@ -20,22 +20,22 @@ public class TreeScale : MonoBehaviour {
 		{
 			fTime += Time.deltaTime;
 		}
-		if(fTime > 3.0f && bCheckGround)
+		if(fTime > 1.0f && bCheckGround)
 		{
-			transform.localPosition += new Vector3(Random.Range (-70, 70), 0, Random.Range (-70,70));
+			transform.localPosition += new Vector3(Random.Range (-130, 130), 0, Random.Range (-130,130));
 			transform.localEulerAngles += new Vector3(0, Random.Range (0, 360), 0);
 			transform.localScale = new Vector3(Random.Range(1.5f, 5f), Random.Range (1.5f,5f), Random.Range (1.5f, 5f));
 			
-			CheckGround ();
+			StartCoroutine(CheckGround());
 			bCheckGround = false;
 		}
 		if(bLoaded)
 		{
-			CheckGround ();
+			StartCoroutine(CheckGround());
 			bLoaded = false;
 		}
 	}
-	public void CheckGround()
+	IEnumerator CheckGround()
 	{
 		RaycastHit hit;
 		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 120f))
@@ -69,11 +69,13 @@ public class TreeScale : MonoBehaviour {
 					save.treesRotation.Add(transform.localEulerAngles);
 				}
 			}
+			
 			//Debug.Log (hit.point.y);
 		}
 		else
 		{
 			Destroy (gameObject);	
 		}
+		yield return new WaitForFixedUpdate();
 	}
 }

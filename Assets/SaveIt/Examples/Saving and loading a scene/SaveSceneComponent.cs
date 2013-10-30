@@ -4,9 +4,8 @@ using System.Linq;
 using UnityEngine;
 using System.Collections;
 using System.Linq;
-using Boomlagoon.JSON;
 using System.Text;
-
+using WyrmTale;
 public class SaveSceneVars
 {
 	public List<Vector3> savedPos = new List<Vector3>();
@@ -25,6 +24,7 @@ public class SaveSceneComponent : MonoBehaviour
 	public List<Vector3> savedChatkaPos = new List<Vector3>();
 	public List<Vector3> chatkaRotation = new List<Vector3>();
 	public List<Vector3> savedChatkaRotation = new List<Vector3>();
+	public List<Vector3> testSerialization = new List<Vector3>();
 	public int m_Width = 8;
 	public int m_Height = 38;
 	public int m_Length = 8;
@@ -40,8 +40,10 @@ public class SaveSceneComponent : MonoBehaviour
 	public int indexC = 0;
 	public string stringTest;
 	public StringBuilder builder = new StringBuilder();
-	public JSONObject obj = new JSONObject();
 	public int indexJson = 0;
+	public SaveSceneVars save = new SaveSceneVars();
+	public SaveSceneVars load = new SaveSceneVars();
+	public JSON js = new JSON();	
  	void OnGUI()
     {
         if (GUI.Button(new Rect(20, 100, 100, 30), "Save"))
@@ -49,6 +51,7 @@ public class SaveSceneComponent : MonoBehaviour
 			savedChatkaRotation.Clear ();
 			savedTreesRotation.Clear ();
 			savedTreesScale.Clear ();
+			
 //			m_voxels.ForEach (checkChunk);
 			pos.ForEach (savePos);
 			treesPos.ForEach (saveTreePos);
@@ -56,7 +59,6 @@ public class SaveSceneComponent : MonoBehaviour
 			treesRotation.ForEach (saveTreeRotation);
 			chatkaPos.ForEach (saveChatkaPos);
 			chatkaRotation.ForEach (saveChatkaRotation);
-			
 			PlayerPrefsX.SetVector3Array("TreesScale", savedTreesScale.ToArray());
 			PlayerPrefsX.SetVector3Array("TreesRotation", savedTreesRotation.ToArray());
 			PlayerPrefsX.SetVector3Array("Testyy", savedPos.ToArray ());
@@ -73,6 +75,7 @@ public class SaveSceneComponent : MonoBehaviour
 			PlayerPrefsX.SetVector3 ("PlayerRot", playerRot);
 			stringTest = builder.ToString ();
 			indexJson = 0;
+			save.savedPos = savedPos;	
 			//PlayerPrefsArray.SetVector3Array("Test", testerer1);
         }
 
@@ -119,10 +122,6 @@ public class SaveSceneComponent : MonoBehaviour
 		if(!savedPos.Contains (pos))
 		{
 			savedPos.Add (pos);	
-			builder.Append (pos.x).Append (" ").Append (pos.y).Append (" ").Append (pos.z).Append (" | ");
-			obj = new JSONObject{
-				{"VectorX" + indexJson, pos.x}	
-			};
 		}
 	}
 	void saveTreePos(Vector3 pos)
@@ -190,7 +189,7 @@ public class SaveSceneComponent : MonoBehaviour
 		lTree.transform.localEulerAngles = savedTreesRotation.ElementAt(index);
 		lTree.transform.localScale = savedTreesScale.ElementAt (index);
 		lTree.transform.parent = GameObject.Find ("TreeHolder").transform;
-		lTree.GetComponent<TreeScale>().bCheckGround = false;
+		//lTree.GetComponent<TreeScale>().bCheckGround = false;
 	//	lTree.GetComponent<TreeScale>().bLoaded = true;
 		lTree.renderer.enabled = true;
 		lTree.name += index;
@@ -205,7 +204,7 @@ public class SaveSceneComponent : MonoBehaviour
 		//lChatka.transform.localEulerAngles = new Vector3(lChatka.transform.localEulerAngles.z, lChatka.transform.localEulerAngles.y, lChatka.transform.localEulerAngles.x);
 	//	lTree.transform.localScale = savedTreesScale.ElementAt (index);
 		lChatka.transform.parent = GameObject.Find ("Chatki").transform;
-		lChatka.GetComponent<ChatkaScale>().bCheckGround = false;
+		//lChatka.GetComponent<ChatkaScale>().bCheckGround = false;
 	//	lTree.GetComponent<TreeScale>().bLoaded = true;
 		lChatka.renderer.enabled = true;
 		lChatka.name += index;

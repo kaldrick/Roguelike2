@@ -18,14 +18,16 @@ public class GenerateTerrain : MonoBehaviour
 	public int currentX, currentZ;
 	public Transform player;
 	public Vector3 lastPosN, lastPosNE, lastPosNW, tester, tester2, tester3, tester4;
+	public PerlinNoise m_surfacePerlin;
+	public VoronoiNoise m_voronoi;
 	public GameObject voxelPrefab;
 	void Start () 
 	{
 		//Random.seed = Random.Range (0, 65000);
 		m_surfaceSeed = Random.Range (0, 65000);
 		//Make 2 perlin noise objects, one is used for the surface and the other for the caves
-		PerlinNoise m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
-		VoronoiNoise m_voronoi = new VoronoiNoise(m_surfaceSeed);
+		m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
+		m_voronoi = new VoronoiNoise(m_surfaceSeed);
 		GameObject.Find ("SaveTracker").GetComponent<SaveSceneComponent>().m_surfaceSeed = m_surfaceSeed;
 		player = GameObject.FindWithTag ("Player").transform;
 			

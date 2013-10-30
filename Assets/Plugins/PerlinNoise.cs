@@ -4,13 +4,13 @@ using System.Collections;
 public class PerlinNoise
 {
 	const int B = 256;
+	public int i,j,k;
 	int[] m_perm = new int[B+B];
 
 	public PerlinNoise(int seed)
 	{
 		UnityEngine.Random.seed = seed;
-
-		int i, j, k;
+	// 	int i, j, k;
 		for (i = 0 ; i < B ; i++) 
 		{
 			m_perm[i] = i;
@@ -28,7 +28,6 @@ public class PerlinNoise
 		{
 			m_perm[B + i] = m_perm[i];
 		}
-		
 	}
 	
 	float FADE(float t) { return t * t * t * ( t * ( t * 6.0f - 15.0f ) + 10.0f ); }
