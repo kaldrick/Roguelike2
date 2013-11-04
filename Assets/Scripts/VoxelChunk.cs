@@ -162,7 +162,7 @@ public class VoxelChunk
 		if(!bDodane)
 		{
 			saveScene = GameObject.Find("SaveTracker").GetComponent<SaveSceneComponent>();
-			saveScene.pos.Add (new Vector3(m_pos.x, m_pos.y, m_pos.z));
+			saveScene.save.pos.Add (new Vector3(m_pos.x, m_pos.y, m_pos.z));
 		}
 		int size = mesh.vertices.Length;
 		

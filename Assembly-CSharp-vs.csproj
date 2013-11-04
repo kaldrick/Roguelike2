@@ -140,7 +140,14 @@
      <Compile Include="Assets\Resources\LibNoise.Unity\Operator\Turbulence.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Properties\AssemblyInfo.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Utils.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Common\ControllableSphereComponent.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Common\DisplayTextComponent.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Common\PointsComponent.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Common\PointsOnCollideComponent.cs" />
      <Compile Include="Assets\SaveIt\Examples\Saving and loading a scene\SaveSceneComponent.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Saving and loading a scene\SaveSceneComponent2.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Saving and loading custom data\SaveHighscoreComponent.cs" />
+     <Compile Include="Assets\SaveIt\Examples\Unbatched saving and loading\SaveSpherePoints.cs" />
      <Compile Include="Assets\Scripts\ChatkaScale.cs" />
      <Compile Include="Assets\Scripts\ChunkData.cs" />
      <Compile Include="Assets\Scripts\CombineChildren.cs" />
@@ -164,6 +171,7 @@
      <Compile Include="Assets\Scripts\RendererExtensions.cs" />
      <Compile Include="Assets\Scripts\SaveMenu.cs" />
      <Compile Include="Assets\Scripts\SetGround.cs" />
+     <Compile Include="Assets\Scripts\Tooltip.cs" />
      <Compile Include="Assets\Scripts\TreeCheck.cs" />
      <Compile Include="Assets\Scripts\TreeScale.cs" />
      <Compile Include="Assets\Scripts\VoxelChunk.cs" />
@@ -173,6 +181,7 @@
      <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
+     <None Include="Assets\SaveIt\readme.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Boomlagoon\JSON\Readme.txt" />
@@ -199,6 +208,12 @@
  </Reference>
  <Reference Include="JsonFx.Json">
  <HintPath>Assets\AstarPathfindingProject\Plugins\JsonFx\JsonFx.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="SaveIt">
+ <HintPath>Assets\SaveIt\Assembly\SaveIt.dll</HintPath>
+ </Reference>
+ <Reference Include="SaveIt.SharpZLib">
+ <HintPath>Assets\SaveIt\Assembly\SaveIt.SharpZLib.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -227,7 +227,7 @@ public class PlayerData : MonoBehaviour {
 			centerChunkPos = hit.transform.GetComponent<ChunkData>().m_pos;
 			Debug.Log ("ZMIENIAM" + centerChunkPos);
 		}
-		Debug.Log (chunks.Count);
+//		Debug.Log (chunks.Count);
 		if(chunks.Count < 18 * (uncoverArea+0.5f) && chunks.Count != 0)
 		{
 			chunks.ForEach(checkChunk);

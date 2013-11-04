@@ -56,10 +56,13 @@
      <Compile Include="Assets\AstarPathfindingProject\Editor\ModifierEditors\SmoothModifierEditor.cs" />
      <Compile Include="Assets\AstarPathfindingProject\Editor\SeekerEditor.cs" />
      <Compile Include="Assets\Editor\CreatePlane.cs" />
+     <Compile Include="Assets\SaveIt\Editor\SaveItVerification.cs" />
+     <Compile Include="Assets\SaveIt\Editor\SaveableEditor.cs" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\Shaders\Test.shader" />
      <None Include="Assets\ToD\shader\SkyboxBlend.shader" />
      <None Include="Assets\AstarPathfindingProject\Plugins\DotNetZip\License.txt" />
+     <None Include="Assets\SaveIt\readme.txt" />
      <None Include="Assets\ToD\shader\skydomematerial.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Boomlagoon\JSON\Readme.txt" />
@@ -92,6 +95,12 @@
  </Reference>
  <Reference Include="JsonFx.Json">
  <HintPath>Assets\AstarPathfindingProject\Plugins\JsonFx\JsonFx.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="SaveIt">
+ <HintPath>Assets\SaveIt\Assembly\SaveIt.dll</HintPath>
+ </Reference>
+ <Reference Include="SaveIt.SharpZLib">
+ <HintPath>Assets\SaveIt\Assembly\SaveIt.SharpZLib.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Praca\Unity\Data\Managed\UnityEditor.Graphs.dll</HintPath>

@@ -28,7 +28,7 @@ public class GenerateTerrain : MonoBehaviour
 		//Make 2 perlin noise objects, one is used for the surface and the other for the caves
 		m_surfacePerlin = new PerlinNoise(m_surfaceSeed);
 		m_voronoi = new VoronoiNoise(m_surfaceSeed);
-		GameObject.Find ("SaveTracker").GetComponent<SaveSceneComponent>().m_surfaceSeed = m_surfaceSeed;
+		GameObject.Find ("SaveTracker").GetComponent<SaveSceneComponent>().save.m_surfaceSeed = m_surfaceSeed;
 		player = GameObject.FindWithTag ("Player").transform;
 			
 		

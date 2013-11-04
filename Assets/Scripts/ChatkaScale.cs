@@ -6,11 +6,13 @@ public class ChatkaScale : MonoBehaviour {
 	public bool bCheckGround = true;
 	public bool bLoaded = false;
 	public float fTime = 0.0f;
+	public int index = 0;
 	// Use this for initialization
 	void Start () {
 		//transform.localPosition += new Vector3(Random.Range (-30, 30), 0, Random.Range (-30,30));
 		
 		save = GameObject.Find ("SaveTracker").GetComponent<SaveSceneComponent>();
+		index = Random.Range (0, 65000);
 		//transform.localScale = new Vector3(Random.Range(1.5f, 5f), Random.Range (1.5f,5f), Random.Range (1.5f, 5f));
 	}
 	void Update()
@@ -47,11 +49,11 @@ public class ChatkaScale : MonoBehaviour {
 			{
 				transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 				renderer.enabled = true;
-				if(!save.chatkaPos.Contains (hit.point))
+				if(!save.save.chatkaPos.Contains (hit.point))
 				{
-					save.chatkaPos.Add (hit.point);
+					save.save.chatkaPos.Add (hit.point);
 					//save.treesScale.Add(transform.localScale);
-					save.chatkaRotation.Add(transform.localEulerAngles);
+					save.save.chatkaRotation.Add(transform.localEulerAngles);
 				}
 			}
 		}

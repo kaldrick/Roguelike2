@@ -51,22 +51,22 @@ public class TreeScale : MonoBehaviour {
 					transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 					renderer.enabled = true;
 					player.GetComponent<PlayerData>().numberOfTrees++;
-					if(!save.treesPos.Contains (hit.point))
+					if(!save.save.treesPos.Contains (hit.point))
 					{
-						save.treesPos.Add (hit.point);
-						save.treesScale.Add(transform.localScale);
-						save.treesRotation.Add(transform.localEulerAngles);
+						save.save.treesPos.Add (hit.point);
+						save.save.treesScale.Add(transform.localScale);
+						save.save.treesRotation.Add(transform.localEulerAngles);
 					}
 					//save.treesName.Add(transform.name);
 				}
 			}
 			else
 			{
-				if(!save.treesPos.Contains (hit.point))
+				if(!save.save.treesPos.Contains (hit.point))
 				{
-					save.treesPos.Add (hit.point);
-					save.treesScale.Add(transform.localScale);
-					save.treesRotation.Add(transform.localEulerAngles);
+					save.save.treesPos.Add (hit.point);
+					save.save.treesScale.Add(transform.localScale);
+					save.save.treesRotation.Add(transform.localEulerAngles);
 				}
 			}
 			
