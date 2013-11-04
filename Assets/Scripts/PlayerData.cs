@@ -134,6 +134,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);	
 				//chunk.bOnce = true;
 			}
 			//NW
@@ -145,6 +146,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//NE
@@ -156,6 +158,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//S
@@ -167,6 +170,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//SW
@@ -178,6 +182,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//SE
@@ -189,6 +194,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//W
@@ -200,6 +206,7 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 			//E
@@ -211,15 +218,20 @@ public class PlayerData : MonoBehaviour {
 				m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 				m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 				m_voxelChunktemp.CreateMesh (terrain.m_material);
+				yield return new WaitForSeconds(.1f);
 				//chunk.bOnce = true;
 			}
 		}
 		chunk.bUsed = true;
 		chunks.Remove (chunk);
-		yield return new WaitForFixedUpdate();	
+		yield return new WaitForSeconds(.2f);	
 	}
 	// Update is called once per frame
 	void Update () {
+		StartCoroutine (check());
+	}
+	IEnumerator check()
+	{
 		RaycastHit hit;
 		Physics.Raycast(transform.position, -Vector3.up, out hit);
 		if(centerChunkPos != hit.transform.GetComponent<ChunkData>().m_pos)
@@ -233,5 +245,6 @@ public class PlayerData : MonoBehaviour {
 			chunks.ForEach(checkChunk);
 			//chunks.ForEach(checkChunk);	
 		}
+		yield return new WaitForSeconds(.2f);
 	}
 }

@@ -1,14 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ChatkaScale.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerData.cs">
     <Files>
-      <File FileName="..\SpacePirates\Assets\Scripts\PlanetScript2.cs" Line="97" Column="6" />
-      <File FileName="Assets\SaveIt\Examples\Saving and loading a scene\SaveSceneComponent.cs" Line="234" Column="1" />
-      <File FileName="Assets\Scripts\TreeScale.cs" Line="79" Column="3" />
+      <File FileName="Assets\SaveIt\Examples\Saving and loading a scene\SaveSceneComponent.cs" Line="231" Column="3" />
+      <File FileName="Assets\Scripts\TreeScale.cs" Line="79" Column="38" />
       <File FileName="Assets\Scripts\ChatkaScale.cs" Line="56" Column="63" />
       <File FileName="Assets\Scripts\GenerateTerrain.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\VoxelChunk.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerData.cs" Line="237" Column="2" />
+      <File FileName="Assets\Scripts\VoxelChunk.cs" Line="230" Column="90" />
+      <File FileName="Assets\Scripts\PlayerData.cs" Line="245" Column="31" />
       <File FileName="..\SpacePirates\Assets\Scripts\AcademyGUI.cs" Line="50" Column="4" />
       <File FileName="Assets\Scripts\Tooltip.cs" Line="12" Column="60" />
     </Files>

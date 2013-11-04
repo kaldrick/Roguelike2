@@ -76,6 +76,6 @@ public class TreeScale : MonoBehaviour {
 		{
 			Destroy (gameObject);	
 		}
-		yield return new WaitForFixedUpdate();
+		yield return new WaitForSeconds(.3f);
 	}
 }

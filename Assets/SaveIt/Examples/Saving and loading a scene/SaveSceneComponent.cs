@@ -199,6 +199,10 @@ public class SaveSceneComponent : MonoBehaviour
 		pos.y++;
 		pos.z++;
 				//Set some varibles for the marching cubes plugin
+		StartCoroutine (lV (pos));
+	}
+	IEnumerator lV(Vector3 pos)
+	{
 		MarchingCubes.SetTarget(0.0f);
 		MarchingCubes.SetWindingOrder(2, 1, 0);
 		MarchingCubes.SetModeToCubes();
@@ -209,6 +213,7 @@ public class SaveSceneComponent : MonoBehaviour
 		
 		m_voxelChunk.CreateVoxels(m_surfacePerlin, m_voronoi);//, m_cavePerlin);
 		m_voxelChunk.CreateMesh (GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().m_material);
+		yield return new WaitForFixedUpdate();
 	}
 	void loadTrees(Vector3 pos)
 	{
