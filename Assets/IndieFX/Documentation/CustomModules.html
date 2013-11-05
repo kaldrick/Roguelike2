@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>IndieFX Documentation</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta name="author" content="Adam T. Ryder">
+<style type="text/css">
+/*----------Text Styles----------*/
+.ws6 {font-size: 8px;}
+.ws7 {font-size: 9.3px;}
+.ws8 {font-size: 11px;}
+.ws9 {font-size: 12px;}
+.ws10 {font-size: 13px;}
+.ws11 {font-size: 15px;}
+.ws12 {font-size: 16px;}
+.ws14 {font-size: 19px;}
+.ws16 {font-size: 21px;}
+.ws18 {font-size: 24px;}
+.ws20 {font-size: 27px;}
+.ws22 {font-size: 29px;}
+.ws24 {font-size: 32px;}
+.ws26 {font-size: 35px;}
+.ws28 {font-size: 37px;}
+.ws36 {font-size: 48px;}
+.ws48 {font-size: 64px;}
+.ws72 {font-size: 96px;}
+.wpmd {font-size: 13px;font-family: Arial,Helvetica,Sans-Serif;font-style: normal;font-weight: normal;}
+/*----------Para Styles----------*/
+DIV,UL,OL /* Left */
+{
+ margin-top: 0px;
+ margin-bottom: 0px;
+}
+</style>
+
+<style type="text/css">
+a.style1:link{color:#CCFFFF;text-decoration: none;}
+a.style1:visited{color:#CCFFFF;text-decoration: none;}
+a.style1:hover{color:#FFFF99;text-decoration: underline;}
+a.style1:active{color:#FFFF99;text-decoration: underline;}
+</style>
+
+<style type="text/css">
+div#container
+{
+	position:relative;
+	width: 800px;
+	margin-top: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align:left; 
+}
+body {text-align:center;margin:0}
+</style>
+
+</head>
+<body Text="#C0C0C0" bgColor="#333333" Link="#CCFFFF" VLink="#CCFFFF" ALink="#FFFF99">
+<div id="container">
+<div id="image1" style="position:absolute; overflow:hidden; left:54px; top:33px; width:692px; height:305px; z-index:0"><img src="images/IndieFX_TitleBWC.png" alt="" title="" border=0 width=692 height=305></div>
+
+<div id="text1" style="position:absolute; overflow:hidden; left:54px; top:360px; width:692px; height:5381px; z-index:1">
+<div class="wpmd">
+<div align=center><font color="#CCFFCC" face="Tahoma" class="ws28">Creating Custom Modules</font></div>
+<div align=center><font color="#CCFFCC" face="Tahoma" class="ws36"><BR></font></div>
+<div><font face="Tahoma" class="ws12">This tutorial will help you understand how to create a custom module for the IndieFX post processing package for Unity.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">1:)</font><font face="Tahoma" class="ws12">&nbsp; In our first step we need to copy the "FX_BlackAndWhite.shader" file from the "Shaders" directory included in this tutorial to your project's "Assests/IndieFX/Shaders" directory.&nbsp; If you've obtained this tutorial through the IndieFX Unity package this step has already been done for you.&nbsp; This shader is really where the magic happens, however; this is not a tutorial on writing shaders, but allowing IndieFX to use them.&nbsp; Consult the Unity documentation for more information about writing shaders for Unity.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">2:)</font><font face="Tahoma" class="ws12">&nbsp; Next we need to setup the class that IndieFX will reference in order to deliver the rendered scene to the shader and display the effect on-screen.&nbsp; Navigate to your project's "Assets/IndieFX/Classes" directory and create a new JavaScript titled "FX_BlackAndWhite.js" then open it in your script editor of choice, I'm more of a UniSciTE guy myself, but that's probably just because MonoDevelop doesn't work on my system.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">3:)</font><font face="Tahoma" class="ws12">&nbsp; Erase any pre-existing code that Unity may have created in the script.&nbsp; First we're going to define the class to be used by IndieFX.&nbsp; Enter the following line of JavaScript code:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public static class FX_BlackAndWhite {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">}</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">"public" tells the compiler that this class can be accessed from outside sources, in this case the IndieFX script, and "static" tells the compiler that this class should not be instantiated as an object.&nbsp; And really who wants to be objectified anyway?&nbsp; This class will never be instantiated so we might as well give the compiler all the details we can about this class.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">4:)</font><font face="Tahoma" class="ws12">&nbsp; Now we're going to setup the method that IndieFX will call from this class, this method will assign any shader specific variables, send the shader the rendered scene image and create a plane object for this shader/material to be displayed upon.&nbsp; Enter the code in bold:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public static class FX_BlackAndWhite {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; </font><font color="#CCFFCC" face="Tahoma" class="ws12"><B>public function run (mat : Material, rTex : Texture2D, mix_bw : float) {</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; </B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; }</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">}</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">This method receives the variables we need in order to setup the display plane or frame.</font></div>
+<div><font face="Tahoma" class="ws12">mat:&nbsp; The material which is to be used to display our black and white effect.</font></div>
+<div><font face="Tahoma" class="ws12">rTex:&nbsp; The rendered scene texture.</font></div>
+<div><font face="Tahoma" class="ws12">mix_bw:&nbsp; A float between 0 and 1 that will tell the shader how much of the effect will be visible.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">5:)</font><font face="Tahoma" class="ws12">&nbsp; Now let's finish up the script and go over what it's doing.&nbsp; Enter the bold code:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public static class FX_BlackAndWhite {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; public function run (mat : Material, rTex : Texture2D, mix_bw : float) {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font><font color="#CCFFCC" face="Tahoma" class="ws12"><B>rTex.ReadPixels(Rect(0,0,Screen.width,Screen.height), 0, 0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rTex.Apply();</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mat.SetTexture("_MainTex", rTex);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mat.SetFloat("_Mix", mix_bw);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.PushMatrix();</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mat.SetPass(0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.LoadOrtho();</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Begin(GL.QUADS);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Color(Color(1,1,1,1));</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.MultiTexCoord(0,Vector3(0,0,0));</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Vertex3(0,0,0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.MultiTexCoord(0,Vector3(0,1,0));</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Vertex3(0,1,0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.MultiTexCoord(0,Vector3(1,1,0));</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Vertex3(1,1,0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.MultiTexCoord(0,Vector3(1,0,0));</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.Vertex3(1,0,0);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.End();</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GL.PopMatrix();</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; }</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">}</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">The first two new lines, rTex.ReadPixels() and rTex.Apply(), assign the current scene render to a texture which can be sent to our shader for processing.&nbsp; The next two lines, mat.SetTexture() and mat.SetFloat(), will send our new scene texture to the shader along with our "mix_bw" variable.&nbsp; The rest of this code creates a plane to be displayed in front of the camera and sets our material/shader as the code that will define how this plane appears to the camera.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">That's it for this particular class, save it.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">6:)</font><font face="Tahoma" class="ws12">&nbsp; Now we need to modify IndieFX.js so that it can use the new shader and class.&nbsp; Navigate to your project's "Assets/IndieFX" directory and open IndieFX.js.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">Locate the "enum IFX" field near the top of the script and modify it as so:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">enum IFX {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; COLOR_BALANCE = 0,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; STAR_BLOOM = 1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; BLOOM = 2,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; BLUR = 3,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; MOTION_BLUR = 4</font><font color="#CCFFCC" face="Tahoma" class="ws12"><B>,</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; BLACK_WHITE = 5</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">}</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">Just below that locate the "Modules" variable and add the new black and white option:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var Modules : IFX[] = [ IFX.STAR_BLOOM, IFX.BLOOM, IFX.MOTION_BLUR, IFX.BLUR, IFX.COLOR_BALANCE</font><font color="#CCFFCC" face="Tahoma" class="ws12"><B>, IFX.BLACK_WHITE</B></font><font color="#CCFFCC" face="Tahoma" class="ws12"> ];</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">"@SerializeField" tells Unity to serialize this variable so that it's state as it is will not be reset when the play button is hit, with most public variables "@SerializeField" is implicit.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">7:)</font><font face="Tahoma" class="ws12">&nbsp; Add a variable to contain the FX_BlackAndWhite shader:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">//Shaders</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var color_balance_shader : Shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var star_bloom_shader : Shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var bloom_shader : Shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var blur_shader : Shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var motion_blur_shader : Shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>@SerializeField</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>public var black_white_shader : Shader;</B></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">8:)</font><font face="Tahoma" class="ws12">&nbsp; Locate the area just after "//Motion Blur settings" and before "//Editor settings" and insert the new "mix_bw" variable between them and a boolean variable which will define if this effect is enabled or not:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var mix_bw : float = 1f;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">public var BlackAndWhiteEnabled : boolean = false;</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">9:)</font><font face="Tahoma" class="ws12">&nbsp; Under the "//Editor settings" area insert the following:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">@SerializeField</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">private var blackWhiteOpts : boolean = false;</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">This variable is used by the editor to determine if the options for the Black and White effect are visible.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">10:)</font><font face="Tahoma" class="ws12">&nbsp; The last thing we need to do to IndieFX.js is add our class to the loop in OnPostRender().&nbsp; Locate the IFX.MOTION_BLUR case of the switch statement and insert the following bold code:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">case IFX.MOTION_BLUR:</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; if (MotionBlurEnabled) {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mat.shader = motion_blur_shader;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FX_MotionBlur.run(Mat, rTexs, rTex, frames, CurrentFrame, MBR_Amount);</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CurrentFrame = (CurrentFrame &lt; frames - 1) ? CurrentFrame + 1 : 0;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; }</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; break;</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>case IFX.BLACK_WHITE:</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; if (BlackAndWhiteEnabled) {</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mat.shader = black_white_shader;</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FX_BlackAndWhite.run(Mat, rTex, mix_bw);</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; }</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; break;</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">11:)</font><font face="Tahoma" class="ws12">&nbsp; Save IndieFX.js.&nbsp; Now we need to navigate to your project's "Assets/Editor/IndieFX" directory and open "IndieFXEditor.js."&nbsp; This script is an intermediary between the Unity editor and the IndieFX.js script, it allows us to display any necessary variables through Unity's Inspector in a user friendly manner.&nbsp; First we're going to update the enum IFX just as we did with IndieFX.js:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">enum IFX {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; COLOR_BALANCE = 0,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; STAR_BLOOM = 1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; BLOOM = 2,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; BLUR = 3,</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; MOTION_BLUR = 4</font><font color="#CCFFCC" face="Tahoma" class="ws12"><B>,</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>&nbsp;&nbsp;&nbsp; BLACK_WHITE = 5</B></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">}</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">12:)</font><font face="Tahoma" class="ws12">&nbsp; Add the new FX_BlackAndWhite shader to the OnInspectorGUI() method:</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">target.color_balance_shader = (target.color_balance_shader) ? target.color_balance_shader : Shader.Find("IndieFX/Shaders/FX ColorBalance");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">target.star_bloom_shader = (target.star_bloom_shader) ? target.star_bloom_shader : Shader.Find("IndieFX/Shaders/FX StarBloom");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">target.bloom_shader = (target.bloom_shader) ? target.bloom_shader : Shader.Find("IndieFX/Shaders/FX Bloom");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">target.blur_shader = (target.blur_shader) ? target.blur_shader : Shader.Find("IndieFX/Shaders/FX Blur");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">target.motion_blur_shader = (target.motion_blur_shader) ? target.motion_blur_shader : Shader.Find("IndieFX/Shaders/FX MotionBlur");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12"><B>target.black_white_shader = (target.black_white_shader) ? target.black_white_shader : Shader.Find("IndieFX/Shaders/FX BlackAndWhite");</B></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">Whenever the editor is refreshed the editor will check to see if the BlackAndWhite shader field is null, if so it will populate the field with the default FX_BlackAndWhite shader, otherwise it will accept whatever shader has been selected.&nbsp; adding "target." before the "black_white_shader" variable tells the script that this is referencing a variable defined in the target script which, in this case, is "IndieFX."</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">13:)</font><font face="Tahoma" class="ws12">&nbsp; We need to add editor controls so we can expose the options for the black and white post processing effect.&nbsp; Locate the "switch (ifx)" area and scroll to the bottom of the switch statement.&nbsp; Add the following lines just after the last "break;":</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">case IFX.BLACK_WHITE:</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; EditorGUILayout.BeginHorizontal();</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; target.BlackAndWhiteEnabled = EditorGUILayout.Toggle(target.BlackAndWhiteEnabled, GUILayout.ExpandWidth(false), GUILayout.MinWidth(15), GUILayout.MaxWidth(15));</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; target.blackWhiteOpts = EditorGUILayout.Foldout(target.blackWhiteOpts, "Black and White");</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; EditorGUILayout.EndHorizontal();</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; if (target.blackWhiteOpts) {</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target.mix_bw = EditorGUILayout.Slider("Mix", target.mix_bw, 0f, 1f);</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EditorGUILayout.Space();</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; target.black_white_shader = EditorGUILayout.ObjectField("Shader: ", target.black_white_shader, Shader, false);</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EditorGUILayout.Space();</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; }</font></div>
+<div><font color="#CCFFCC" face="Tahoma" class="ws12">&nbsp;&nbsp;&nbsp; break;</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">First we're creating a horizontal area for the editor to layout the enabled check box next to the drop down arrow which reveals the Black and White effect's options.&nbsp; If the menu has been opened via the foldout arrow we display a slider, the value of that slider is determined by and applied to our "mix_bw" variable in the IndieFX script.&nbsp; Next we add a little bit of space to keep things from bunching up and then define the field which will allow us to accept a shader for the effect.&nbsp; As defined before the default shader we've created "FX_BlackAndWhite" will be populated here by default and used whenever the field is cleared.&nbsp; Then we add another space to keep things legible.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font color="#FF9900" face="Tahoma" class="ws12">14:)</font><font face="Tahoma" class="ws12">&nbsp; That's it!&nbsp; Save IndieFXEditor.js and return to your Unity project.&nbsp; Once Unity has finished compiling the scripts add "IndieFX.js" to your game camera and you should see your new module available in the Inpsector panel.&nbsp; If you had already added "IndieFX.js" to your game camera before updating the scripts you may need to remove the component and then re-add it in order to see the new options.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12">P.S.&nbsp; The "Mix" option allows us to mix the black and white effect with the raw render or previous effect.&nbsp; This will allow us, through code, to fade from full color to black and white.&nbsp; Conversely you may not want an entirely black and white effect, personally I find it pleasing to the eye to add the black and white effect with a mix around 0.7 which gives you a mostly black and white image with a little bit of color showing through.</font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div><font face="Tahoma" class="ws12"><BR></font></div>
+<div align=center><font face="Tahoma" class="ws12">Adam T. Ryder</font></div>
+<div align=center><font face="Tahoma" class="ws12"><a href="http://1337atr.weebly.com" title="" class="style1">http://1337atr.weebly.com</a></font></div>
+</div></div>
+
+</div>
+
+</body>
+</html>

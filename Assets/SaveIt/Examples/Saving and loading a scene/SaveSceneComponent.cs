@@ -43,7 +43,8 @@ public class SaveSceneComponent : MonoBehaviour
 	public string path = @"C:\";
 	public string saveName = "Test.dat";
 	public JSON js = new JSON();
-	
+	public SaveContext context;
+	public LoadContext loadCon;
  	void OnGUI()
     {
         if (GUI.Button(new Rect(20, 100, 100, 30), "Save"))
@@ -51,8 +52,14 @@ public class SaveSceneComponent : MonoBehaviour
 			save.savedChatkaRotation.Clear ();
 			save.savedTreesRotation.Clear ();
 			save.savedTreesScale.Clear ();
-			
-			SaveContext context = SaveContext.ToFile (path+saveName);
+			if( Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer )
+			{
+				context = SaveContext.ToPlayerPrefs (saveName);
+			}
+			else
+			{
+				context = SaveContext.ToFile (path+saveName);
+			}
 //			m_voxels.ForEach (checkChunk);
 			save.pos.ForEach (savePos);
 			save.treesPos.ForEach (saveTreePos);
@@ -104,7 +111,14 @@ public class SaveSceneComponent : MonoBehaviour
 			save.savedChatkaRotation.Clear ();
 			save.savedChatkaPos.Clear ();
 			//LoadContext loadCon = LoadContext.FromFile("Test.dat");
-			LoadContext loadCon = LoadContext.FromFile (path+saveName);
+			if( Application.platform == RuntimePlatform.OSXWebPlayer || Application.platform == RuntimePlatform.WindowsWebPlayer )
+			{
+				loadCon = LoadContext.FromPlayerPrefs (saveName);
+			}
+			else
+			{
+				loadCon = LoadContext.FromFile (path+saveName);
+			}
 			save.testSerialization = loadCon.Load<List<Vector3>>("savedPos");
 			save.savedTreesScale = loadCon.Load<List<Vector3>>("savedTreesScale");
 			save.savedTreesRotation = loadCon.Load<List<Vector3>>("savedTreesRotation");
@@ -129,7 +143,9 @@ public class SaveSceneComponent : MonoBehaviour
 			player.rigidbody.velocity = save.playerVel;
 			player.transform.localEulerAngles = save.playerRot;
 			GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().m_surfaceSeed = save.m_surfaceSeed;
-			save.savedTreesPos.ForEach (loadTrees);
+			//save.savedTreesPos.ForEach (loadTrees2);
+			
+			StartCoroutine (loadTrees2 ());
 			save.savedChatkaPos.ForEach (loadChatki);
 			index = 0;
 			cindex = 0;
@@ -228,6 +244,24 @@ public class SaveSceneComponent : MonoBehaviour
 		MakeParents();
 		CheckIndex();
 		index++;
+	}
+	IEnumerator loadTrees2()
+	{
+		foreach(Vector3 pos in save.savedTreesPos.AsEnumerable().Reverse ())
+		{
+			GameObject lTree = GameObject.Instantiate (tree, pos, tree.transform.rotation) as GameObject;
+			lTree.transform.localEulerAngles = save.savedTreesRotation.ElementAt(index);
+			lTree.transform.localScale = save.savedTreesScale.ElementAt (index);
+			lTree.transform.parent = GameObject.Find ("TreeHolder").transform;
+			//lTree.GetComponent<TreeScale>().bCheckGround = false;
+		//	lTree.GetComponent<TreeScale>().bLoaded = true;
+			lTree.renderer.enabled = true;
+			lTree.name += index;
+			MakeParents();
+			CheckIndex();
+			index++;
+			yield return new WaitForFixedUpdate();
+		}
 	}
 	void loadChatki(Vector3 pos)
 	{

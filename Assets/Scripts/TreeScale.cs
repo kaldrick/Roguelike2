@@ -20,7 +20,7 @@ public class TreeScale : MonoBehaviour {
 		{
 			fTime += Time.deltaTime;
 		}
-		if(fTime > 1.0f && bCheckGround)
+		if(fTime > 0.2f && bCheckGround)
 		{
 			transform.localPosition += new Vector3(Random.Range (-130, 130), 0, Random.Range (-130,130));
 			transform.localEulerAngles += new Vector3(0, Random.Range (0, 360), 0);
