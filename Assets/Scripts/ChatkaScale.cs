@@ -41,7 +41,7 @@ public class ChatkaScale : MonoBehaviour {
 		RaycastHit hit;
 		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 60f))
 		{
-			if(hit.point.y < -75f || hit.transform.name == "Tree(Clone)" || hit.transform.name == "chatka(Clone)")
+			if(hit.point.y < -75f || hit.transform.name == "Tree(Clone)" || hit.transform.name == "chatka(Clone)" || hit.transform.name == "chatka")
 			{
 				Destroy (gameObject);
 			}
@@ -54,6 +54,7 @@ public class ChatkaScale : MonoBehaviour {
 					save.save.chatkaPos.Add (hit.point);
 					//save.treesScale.Add(transform.localScale);
 					save.save.chatkaRotation.Add(transform.localEulerAngles);
+					transform.parent.GetComponent<Tooltip>().tooltip.children++;
 				}
 			}
 		}

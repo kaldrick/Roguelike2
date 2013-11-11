@@ -16,6 +16,7 @@ public class PlayerData : MonoBehaviour {
 	public UnityThreading.ActionThread myThread;	
 	public int numberOfTrees = 0;
 	public int numberOfChatki = 0;
+	public int numberOfChatkiParent = 0;
 	public CombineChildren[] combiner;
 	public GameObject[] drzewka;
 	//public System.Predicate<ChunkData> chunkPredicate = new System.Predicate<ChunkData>(checkChunk);
@@ -50,7 +51,7 @@ public class PlayerData : MonoBehaviour {
 		PerlinNoise m_surfacePerlin = new PerlinNoise(terrain.m_surfaceSeed);
 		VoronoiNoise m_voronoi = new VoronoiNoise(terrain.m_surfaceSeed);
 		//List<ChunkData> chunks2 = new List<ChunkData>(); 
-		foreach(ChunkData chunk in chunks)
+		foreach(ChunkData chunk in chunks.ToArray ())
 		{	
 			for(int i = 0; i <= uncoverArea; i++)
 			{
@@ -63,7 +64,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);	
+				//	yield return new WaitForSeconds(.1f);	
 					//chunk.bOnce = true;
 				}
 				//NW
@@ -75,7 +76,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//NE
@@ -87,7 +88,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//S
@@ -99,7 +100,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//SW
@@ -111,7 +112,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//SE
@@ -123,7 +124,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//W
@@ -135,7 +136,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				//E
@@ -147,7 +148,7 @@ public class PlayerData : MonoBehaviour {
 					m_voxelChunktemp = new VoxelChunk(pos, terrain.m_voxelWidth, terrain.m_voxelHeight, terrain.m_voxelLength, terrain.m_surfaceLevel);
 					m_voxelChunktemp.CreateVoxels (m_surfacePerlin, m_voronoi);
 					m_voxelChunktemp.CreateMesh (terrain.m_material);
-					yield return new WaitForSeconds(.1f);
+				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
 				yield return new WaitForFixedUpdate();

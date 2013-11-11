@@ -22,6 +22,7 @@ public class SaveSceneVars
 	public List<Vector3> chatkaRotation = new List<Vector3>();
 	public List<Vector3> savedChatkaRotation = new List<Vector3>();
 	public List<Vector3> testSerialization = new List<Vector3>();
+	public List<TooltipData> tooltipData = new List<TooltipData>();
 	public int m_surfaceSeed;
 	public Vector3 playerPos, playerVel, playerRot;
 }
@@ -273,6 +274,8 @@ public class SaveSceneComponent : MonoBehaviour
 		//lChatka.GetComponent<ChatkaScale>().bCheckGround = false;
 	//	lTree.GetComponent<TreeScale>().bLoaded = true;
 		lChatka.renderer.enabled = true;
+		lChatka.GetComponent<Tooltip>().bLoaded = true;
+		lChatka.GetComponent<Tooltip>().tooltip = save.tooltipData.ElementAt (cindex);
 		lChatka.name += cindex;
 		//MakeParents();
 		//CheckIndex();
