@@ -212,18 +212,18 @@ public class VoxelChunk
 		m_mesh = GameObject.Instantiate (GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().voxelPrefab) as GameObject;
 		m_mesh.name = "Voxel Mesh " + m_pos.x.ToString() + " " + m_pos.y.ToString() + " " + m_pos.z.ToString();
 		
-		m_mesh.AddComponent<ChunkData>();
+	//	m_mesh.AddComponent<ChunkData>();
 		m_mesh.GetComponent<ChunkData>().m_pos = m_pos;
 		m_mesh.GetComponent<ChunkData>().bDodane = bDodane;
 		m_mesh.transform.parent = GameObject.Find ("Terrain").transform;
 	//	m_mesh.AddComponent<MeshFilter>();
 	//	m_mesh.AddComponent<MeshRenderer>();
-	//	m_mesh.renderer.material = mat;
+		//m_mesh.renderer.sharedMaterial = mat;
 	//	m_mesh.renderer.castShadows = false;
 		m_mesh.GetComponent<MeshFilter>().sharedMesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);
-		m_mesh.isStatic = true;
+	//	m_mesh.isStatic = true;
 		MeshCollider collider = m_mesh.GetComponent<MeshCollider>();
 		collider.sharedMesh = mesh;
 

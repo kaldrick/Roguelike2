@@ -25,6 +25,7 @@ public class SaveSceneVars
 	public List<TooltipData> tooltipData = new List<TooltipData>();
 	public int m_surfaceSeed;
 	public Vector3 playerPos, playerVel, playerRot;
+	public float fTimePassed;
 }
 public class SaveSceneComponent : MonoBehaviour
 {
@@ -79,6 +80,7 @@ public class SaveSceneComponent : MonoBehaviour
 			save.playerPos = player.transform.localPosition;
 			save.playerVel = player.rigidbody.velocity;
 			save.playerRot = player.transform.localEulerAngles;
+			save.fTimePassed = player.GetComponent<PlayerData>().fTimePassed;
 			//PlayerPrefsX.SetVector3 ("PlayerPos", playerPos);
 			//PlayerPrefsX.SetVector3 ("PlayerVel", playerVel);
 			//PlayerPrefsX.SetVector3 ("PlayerRot", playerRot);
@@ -95,6 +97,7 @@ public class SaveSceneComponent : MonoBehaviour
 			context.Save (save.playerVel, "playerVel");
 			context.Save (save.playerRot, "playerRot");
 			context.Save (save.m_surfaceSeed, "m_surfaceSeed");
+			context.Save (save.fTimePassed, "fTimePassed");
 			context.Flush();
 			//PlayerPrefsArray.SetVector3Array("Test", testerer1);
         }
@@ -143,6 +146,7 @@ public class SaveSceneComponent : MonoBehaviour
 			player.transform.localPosition = save.playerPos;
 			player.rigidbody.velocity = save.playerVel;
 			player.transform.localEulerAngles = save.playerRot;
+			player.GetComponent<PlayerData>().fTimePassed = save.fTimePassed;
 			GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().m_surfaceSeed = save.m_surfaceSeed;
 			//save.savedTreesPos.ForEach (loadTrees2);
 			

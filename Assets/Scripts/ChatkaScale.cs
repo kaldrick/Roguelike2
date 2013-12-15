@@ -54,8 +54,10 @@ public class ChatkaScale : MonoBehaviour {
 					save.save.chatkaPos.Add (hit.point);
 					//save.treesScale.Add(transform.localScale);
 					save.save.chatkaRotation.Add(transform.localEulerAngles);
-					transform.parent.GetComponent<Tooltip>().tooltip.children++;
 				}
+				transform.parent.GetComponent<Tooltip>().tooltip.children++;
+				transform.parent.GetComponent<Tooltip>().children = transform.parent.GetComponent<Tooltip>().tooltip.children;
+				GetComponent<Tooltip>().children = transform.parent.GetComponent<Tooltip>().tooltip.children;
 			}
 		}
 		else

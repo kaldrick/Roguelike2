@@ -18,6 +18,7 @@ public class PlayerData : MonoBehaviour {
 	public int numberOfChatki = 0;
 	public int numberOfChatkiParent = 0;
 	public CombineChildren[] combiner;
+	public float fTimePassed = 0f;
 	public GameObject[] drzewka;
 	//public System.Predicate<ChunkData> chunkPredicate = new System.Predicate<ChunkData>(checkChunk);
 	// Use this for initialization
@@ -27,6 +28,7 @@ public class PlayerData : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		StartCoroutine (check());
+		fTimePassed += Time.fixedDeltaTime;
 	}
 	IEnumerator check()
 	{

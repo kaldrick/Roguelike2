@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float rotationInput = Input.GetAxis("Horizontal") * Time.deltaTime * 128;
-		float moveInput = Input.GetAxis ("Vertical") * Time.deltaTime * 192;
+		float moveInput = Input.GetAxis ("Vertical") * Time.deltaTime * 384;
 		//transform.Translate(moveVector);
 		rigidbody.velocity = transform.forward * moveInput;
 		newPos = transform.position;

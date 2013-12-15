@@ -9,7 +9,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 	public GameObject cube2;
 	public float posY, posZ, rotX, prevPosY;
 	public Vector3 camPos, camRot, startPos, startRot;
-	public GameObject trees, chatys;
+	public GameObject trees, chatys, UI;
 	// Use this for initialization
 	void Start () {
 		rigidbody.freezeRotation = true;
@@ -18,7 +18,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 		cityCam.enabled = false;
 		camPos = new Vector3(0, 32, -8);
 		camRot = new Vector3(60, 0, 0);
-		posY = 32f;
+		posY = 128f;
 		posZ = -8f;
 		rotX = 60f;
 		trees = GameObject.Find ("TreeHolder");
@@ -58,6 +58,10 @@ public class PlayerControllerWorld : MonoBehaviour {
 				}
 			}
 		}
+		if(Input.GetKeyDown (KeyCode.I))
+		{
+			UI.SetActive (!UI.activeSelf);
+		}
 		if(Input.GetKeyDown (KeyCode.Escape))
 		{
 			if(cityCam.enabled = true)
@@ -77,7 +81,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 			if(scrollInput != 0f)
 			{
 				fZoom = Mathf.Clamp (fZoom + scrollInput * 10f, -10f, 10f);
-				posY = Mathf.Clamp (camPos.y - fZoom * 6f, 14f, 32f);
+				posY = Mathf.Clamp (camPos.y - fZoom * 32f, 14f, 128f);
 				posZ = Mathf.Clamp (camPos.z - fZoom*2f, -18f, -8f);
 				rotX = Mathf.Clamp (normalCam.transform.localEulerAngles.x - fZoom * 12f, 24f, 60f);	
 				/*if(normalCam.enabled && fZoom != 0f)

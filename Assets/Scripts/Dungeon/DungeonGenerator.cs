@@ -304,7 +304,7 @@ public class DungeonGenerator : MonoSingleton <DungeonGenerator> {
 					int id = tiles[row,col].id;
 					if (id == Tile.TILE_ROOM || id == Tile.TILE_CORRIDOR)
 					{
-						GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col,0.0f,row),Quaternion.identity) as GameObject;
+						GameObject floor = GameObject.Instantiate(prefabFloor01,new Vector3(col,0.0f,row),prefabFloor01.transform.rotation) as GameObject;
 						floor.transform.parent = container.transform;
 					}
 					else if (id == Tile.TILE_WALL)
