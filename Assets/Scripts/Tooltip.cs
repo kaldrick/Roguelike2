@@ -519,7 +519,6 @@ public class Tooltip : MonoBehaviour {
 	//	Debug.Log ("Dzialam");
 		
 	}
-	
 	void OnMouseExit(){
 		if(bShow)
 		{
@@ -530,19 +529,26 @@ public class Tooltip : MonoBehaviour {
 	{
 		if((Vector3.Distance (transform.position, player.transform.position) < 100))
 		{
+			Debug.Log (GameObject.Find ("Text1").GetComponent<TextMesh>());
 			GameObject.Find ("Text1").GetComponent<TextMesh>().text = tooltip.house1.ToString () + " " + tooltip.House1ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text2").GetComponent<TextMesh>().text = tooltip.house2.ToString () + " " + tooltip.House2ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text3").GetComponent<TextMesh>().text = tooltip.house3.ToString () + " " + tooltip.House3ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text4").GetComponent<TextMesh>().text = tooltip.house4.ToString () + " " + tooltip.House4ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text5").GetComponent<TextMesh>().text = tooltip.house5.ToString () + " " + tooltip.House5ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text6").GetComponent<TextMesh>().text = tooltip.house6.ToString () + " " + tooltip.House6ratio.ToString ("f1") + "/s";
+			GameObject.Find ("House1").GetComponent<ChatkaOnClick>().myName = tooltip.house1.ToString ();
+			GameObject.Find ("House2").GetComponent<ChatkaOnClick>().myName = tooltip.house2.ToString ();
+			GameObject.Find ("House3").GetComponent<ChatkaOnClick>().myName = tooltip.house3.ToString ();
+			GameObject.Find ("House4").GetComponent<ChatkaOnClick>().myName = tooltip.house4.ToString ();
+			GameObject.Find ("House5").GetComponent<ChatkaOnClick>().myName = tooltip.house5.ToString ();
+			GameObject.Find ("House6").GetComponent<ChatkaOnClick>().myName = tooltip.house6.ToString ();
 			GameObject.Find ("Resources").GetComponent<TextMesh>().text = "Resources: " + tooltip.resources.ToString ("f1");
 			player.normalCam.enabled = false;
 			player.cityCam.enabled = true;
 			if(tooltip.house1Availability == 1)
 			{
 				GameObject.Find ("House1").renderer.enabled = true;
-				GameObject.Find ("Text1").renderer.enabled = true;
+				GameObject.Find ("House1/Text1").renderer.enabled = true;
 			}
 			else
 			{

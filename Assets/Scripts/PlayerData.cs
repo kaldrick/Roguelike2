@@ -20,13 +20,94 @@ public class PlayerData : MonoBehaviour {
 	public CombineChildren[] combiner;
 	public float fTimePassed = 0f;
 	public GameObject[] drzewka;
+	public List<Item> Inventory = new List<Item>();
+	public int InventoryCount = 0;
+	public GameObject prevItem;
+	public GameObject InventoryParent;
+	public GameObject newItem;
 	//public System.Predicate<ChunkData> chunkPredicate = new System.Predicate<ChunkData>(checkChunk);
 	// Use this for initialization
 	void Start () {
 		terrain = GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>();
+		InventoryParent = GameObject.Find ("Grid");
+		Inventory.Add (new Item("Iron", 15, 120));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
+		Inventory.Add (new Item("Steel", 10, 140));
 	}
 	// Update is called once per frame
 	void Update () {
+		if(InventoryCount != Inventory.Count && GameObject.Find ("InventoryUI Root (3D)"))
+		{
+			if(GameObject.Find ("Item" + (InventoryCount).ToString ()) == null)
+			{
+				prevItem = GameObject.Find ("Item" + (InventoryCount-1).ToString ());
+				newItem = Instantiate (prevItem, prevItem.transform.position, prevItem.transform.rotation) as GameObject;
+				if(InventoryParent == null)
+				{
+					InventoryParent = GameObject.Find ("Grid");
+				}
+				newItem.transform.parent = InventoryParent.transform;
+				newItem.transform.name = "Item" + (InventoryCount).ToString ();
+				newItem.transform.localScale = new Vector3(1,1,1);
+				InventoryParent.GetComponent<UIGrid>().Reposition ();
+			//	newItem.transform.position = prevItem.transform.position - new Vector3(0,0.12f,0);
+				foreach(Transform child in newItem.transform)
+				{
+					if(child.name == "NAME")
+					{
+						child.GetComponent<UILabel>().text = Inventory.ElementAt (InventoryCount).name;
+					}
+					else if(child.name == "QLT")
+					{
+						child.GetComponent<UILabel>().text = Inventory.ElementAt (InventoryCount).quality.ToString ();
+					}
+					else if(child.name == "WEIGHT")
+					{
+						child.GetComponent<UILabel>().text = Inventory.ElementAt (InventoryCount).weight.ToString () + " KG";
+					}
+				}
+			}
+			else
+			{
+				if(InventoryCount == 0)
+				{
+					prevItem = GameObject.Find ("Item0");
+					foreach(Transform child in prevItem.transform)
+					{
+						if(child.name == "NAME")
+						{
+							child.GetComponent<UILabel>().text = Inventory.ElementAt (0).name;
+						}
+						else if(child.name == "QLT")
+						{
+							child.GetComponent<UILabel>().text = Inventory.ElementAt (0).quality.ToString ();
+						}
+						else if(child.name == "WEIGHT")
+						{
+							child.GetComponent<UILabel>().text = Inventory.ElementAt (0).weight.ToString () + " KG";
+						}
+					}
+				}
+				InventoryCount++;
+				return;
+			}
+		}
 		StartCoroutine (check());
 		fTimePassed += Time.fixedDeltaTime;
 	}
@@ -153,12 +234,12 @@ public class PlayerData : MonoBehaviour {
 				//	yield return new WaitForSeconds(.1f);
 					//chunk.bOnce = true;
 				}
-				yield return new WaitForFixedUpdate();
+				yield return new WaitForSeconds(0.001f);
 			}
 			chunk.bUsed = true;
 			//chunks2.Add (chunk); 
 			chunks.Remove (chunk);
-			yield return new WaitForFixedUpdate();
+			yield return new WaitForSeconds(0.001f);
 		}
 		//chunks = chunks.Except (chunks2).ToList ();
 		//chunks2.Clear ();

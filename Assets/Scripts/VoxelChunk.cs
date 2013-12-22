@@ -13,6 +13,7 @@ public class VoxelChunk
 	public SaveSceneComponent saveScene;
 	public bool bDodane = false;
 	public float ht, groundHt, mountainHt, worldY;
+	public MonoBehaviour monoInstance;
 	int[,] m_sampler = new int[,] 
 	{
 		{1,-1,0}, {1,-1,1}, {0,-1,1}, {-1,-1,1}, {-1,-1,0}, {-1,-1,-1}, {0,-1,-1}, {1,-1,-1}, {0,-1,0},
@@ -90,8 +91,17 @@ public class VoxelChunk
 		//float startTime = Time.realtimeSinceStartup;
 		
 		//Creates the data the mesh is created form. Fills m_voxels with values between -1 and 1 where
-		//-1 is a soild voxel and 1 is a empty voxel.
+		if(monoInstance == null)
+		{
+			//-1 is a soild voxel and 1 is a empty voxel.
+			monoInstance = GameObject.Find ("CoRoutiner").GetComponent<MonoBehaviour>();
+		}
+		monoInstance.StartCoroutine ("DoCoroutine", this.kriejt(surfacePerlin, voronoiNoise));
+		//Debug.Log("Create voxels time = " + (Time.realtimeSinceStartup-startTime).ToString() );
 		
+	}
+	IEnumerator kriejt(PerlinNoise surfacePerlin, VoronoiNoise voronoiNoise)//, PerlinNoise cavePerlin)
+	{
 		int w = m_voxels.GetLength(0);
 		int h = m_voxels.GetLength(1);
 		int l = m_voxels.GetLength(2);
@@ -102,15 +112,15 @@ public class VoxelChunk
 				//world pos is the voxels position plus the voxel chunks position
 				float worldX = x+m_pos.x;
 				float worldZ = z+m_pos.z;
-				 groundHt = SampleGround(worldX, worldZ, surfacePerlin, voronoiNoise);
+				groundHt = SampleGround(worldX, worldZ, surfacePerlin, voronoiNoise);
 				
-				 mountainHt = SampleMountains(worldX, worldZ, surfacePerlin);
-				 ht = mountainHt + groundHt;
-		
+				mountainHt = SampleMountains(worldX, worldZ, surfacePerlin);
+				ht = mountainHt + groundHt;
+				
 				for(int y = 0; y < h; y++)
 				{
-					 worldY = y+m_pos.y-m_surfaceLevel;
-				
+					worldY = y+m_pos.y-m_surfaceLevel;
+					
 					//If we take the heigth value and add the world
 					//the voxels will change from positiove to negative where the surface cuts through the voxel chunk
 					m_voxels[x,y,z] = Mathf.Clamp(ht + worldY , -1.0f, 1.0f);
@@ -122,14 +132,12 @@ public class VoxelChunk
 					
 					//m_voxels[x,y,z] += caveHt * fade;
 					
-				//	m_voxels[x,y,z] = Mathf.Clamp(m_voxels[x,y,z], -1.0f, 1.0f);
+					//	m_voxels[x,y,z] = Mathf.Clamp(m_voxels[x,y,z], -1.0f, 1.0f);
 				}
 			}
 		}
-		//Debug.Log("Create voxels time = " + (Time.realtimeSinceStartup-startTime).ToString() );
-		
+		yield return new WaitForSeconds(0.001f);
 	}
-	
 	
 	Vector3 TriLinearInterpNormal(Vector3 pos)
 	{	
@@ -155,10 +163,21 @@ public class VoxelChunk
 	
 	public void CreateMesh(Material mat)
 	{
+		//Creates the data the mesh is created form. Fills m_voxels with values between -1 and 1 where
+		if(monoInstance == null)
+		{
+			//-1 is a soild voxel and 1 is a empty voxel.
+			monoInstance = GameObject.Find ("CoRoutiner").GetComponent<MonoBehaviour>();
+		}
+		monoInstance.StartCoroutine ("DoCoroutine", this.kriejt2());
+
+	}
+	IEnumerator kriejt2()
+	{
 		//float startTime = Time.realtimeSinceStartup;
 		
 		Mesh mesh = MarchingCubes.CreateMesh(m_voxels,0,0);
-		if(mesh == null) return;
+		if(mesh == null) yield return null;
 		if(!bDodane)
 		{
 			saveScene = GameObject.Find("SaveTracker").GetComponent<SaveSceneComponent>();
@@ -186,9 +205,9 @@ public class VoxelChunk
 			mesh.RecalculateNormals();
 		}
 		
-	//	Color[] control = new Color[size];
-	//	Vector3[] meshNormals = mesh.normals;
-			
+		//	Color[] control = new Color[size];
+		//	Vector3[] meshNormals = mesh.normals;
+		
 		/*for(int i = 0; i < size; i++)
 		{
 			//This creates a control map used to texture the mesh based on the slope
@@ -212,21 +231,21 @@ public class VoxelChunk
 		m_mesh = GameObject.Instantiate (GameObject.Find ("TerrainGenerator").GetComponent<GenerateTerrain>().voxelPrefab) as GameObject;
 		m_mesh.name = "Voxel Mesh " + m_pos.x.ToString() + " " + m_pos.y.ToString() + " " + m_pos.z.ToString();
 		
-	//	m_mesh.AddComponent<ChunkData>();
+		//	m_mesh.AddComponent<ChunkData>();
 		m_mesh.GetComponent<ChunkData>().m_pos = m_pos;
 		m_mesh.GetComponent<ChunkData>().bDodane = bDodane;
 		m_mesh.transform.parent = GameObject.Find ("Terrain").transform;
-	//	m_mesh.AddComponent<MeshFilter>();
-	//	m_mesh.AddComponent<MeshRenderer>();
+		//	m_mesh.AddComponent<MeshFilter>();
+		//	m_mesh.AddComponent<MeshRenderer>();
 		//m_mesh.renderer.sharedMaterial = mat;
-	//	m_mesh.renderer.castShadows = false;
+		//	m_mesh.renderer.castShadows = false;
 		m_mesh.GetComponent<MeshFilter>().sharedMesh = mesh;
 		m_mesh.transform.localPosition = m_pos * 32;
 		m_mesh.transform.localScale = new Vector3(32,32,32);
-	//	m_mesh.isStatic = true;
+		//	m_mesh.isStatic = true;
 		MeshCollider collider = m_mesh.GetComponent<MeshCollider>();
 		collider.sharedMesh = mesh;
-
-		//Debug.Log("Create mesh time = " + (Time.realtimeSinceStartup-startTime).ToString() );
+		yield return new WaitForSeconds(0.001f);
+		//Debug.Log("Create mesh time = " + (Time.realtimeSinceStartup-startTime).ToString() );	
 	}
 }

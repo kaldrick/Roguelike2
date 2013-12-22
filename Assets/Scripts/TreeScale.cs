@@ -12,7 +12,6 @@ public class TreeScale : MonoBehaviour {
 	void Start () {
 		player = GameObject.Find ("PlayerWorld");
 		save = GameObject.Find ("SaveTracker").GetComponent<SaveSceneComponent>();
-	
 	}
 	void Update()
 	{
@@ -22,7 +21,7 @@ public class TreeScale : MonoBehaviour {
 		}
 		if(fTime > 0.2f && bCheckGround)
 		{
-			transform.localPosition += new Vector3(Random.Range (-130, 130), 0, Random.Range (-130,130));
+			transform.localPosition += new Vector3(Random.Range (-120, 120), 0, Random.Range (-120,120));
 			transform.localEulerAngles += new Vector3(0, Random.Range (0, 360), 0);
 			transform.localScale = new Vector3(Random.Range(1.5f, 5f), Random.Range (1.5f,5f), Random.Range (1.5f, 5f));
 			
@@ -38,7 +37,7 @@ public class TreeScale : MonoBehaviour {
 	IEnumerator CheckGround()
 	{
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 120f))
+		if (Physics.Raycast (transform.position, -Vector3.up, out hit, 250f))
 		{
 			if(bCheckGround)
 			{
@@ -50,7 +49,7 @@ public class TreeScale : MonoBehaviour {
 				{
 					transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
 					renderer.enabled = true;
-					player.GetComponent<PlayerData>().numberOfTrees++;
+					//player.GetComponent<PlayerData>().numberOfTrees++;
 					if(!save.save.treesPos.Contains (hit.point))
 					{
 						save.save.treesPos.Add (hit.point);
