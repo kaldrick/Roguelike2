@@ -33,10 +33,10 @@ public class CombineChildren : MonoBehaviour {
     [ContextMenu("Combine Now on Childs")]
     public void CallCombineOnAllChilds()
     {
-        CombineChildren[] c = gameObject.GetComponentsInChildren<CombineChildren>();
+/*        CombineChildren[] c = gameObject.GetComponentsInChildren<CombineChildren>();
         int count = c.Length;
         for (int i = 0; i < count; i++) if(c[i] != this)c[i].Combine();
-        combineOnStart = enabled = false;
+        combineOnStart = enabled = false;*/
     }
 
 	/// This option has a far longer preprocessing time at startup but leads to better runtime performance.

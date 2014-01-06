@@ -11,7 +11,7 @@ public class TestTransformSpeed : MonoBehaviour {
 		watch.Start();
 		for(var i = 0; i < 10000; i ++)
 		{
-			var t = transform.position;
+//			var t = transform.position;
 		}
 		watch.Stop();
 		UnityEngine.Debug.Log(watch.ElapsedTicks/10000000f);
@@ -19,7 +19,7 @@ public class TestTransformSpeed : MonoBehaviour {
 		watch.Start();
 		for(var i = 0; i < 10000; i ++)
 		{
-			var t = transform.localPosition;
+	//		var t = transform.localPosition;
 		}
 		watch.Stop();
 		UnityEngine.Debug.Log(watch.ElapsedTicks/10000000f);

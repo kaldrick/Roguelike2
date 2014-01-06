@@ -191,6 +191,7 @@
      <Compile Include="Assets\PlayerPrefsPlus\Demo.cs" />
      <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsArray.cs" />
      <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsPlus.cs" />
+     <Compile Include="Assets\Rain&amp;Snow_StaticNova\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Billow.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Checker.cs" />
      <Compile Include="Assets\Resources\LibNoise.Unity\Generator\Const.cs" />
@@ -237,6 +238,7 @@
      <Compile Include="Assets\Scripts\ChatkaOnClick.cs" />
      <Compile Include="Assets\Scripts\ChatkaScale.cs" />
      <Compile Include="Assets\Scripts\ChunkData.cs" />
+     <Compile Include="Assets\Scripts\CityVariables.cs" />
      <Compile Include="Assets\Scripts\CoRoutiner.cs" />
      <Compile Include="Assets\Scripts\ColliderIgnore.cs" />
      <Compile Include="Assets\Scripts\CombineChildren.cs" />
@@ -263,6 +265,7 @@
      <Compile Include="Assets\Scripts\RendererExtensions.cs" />
      <Compile Include="Assets\Scripts\SaveMenu.cs" />
      <Compile Include="Assets\Scripts\SetGround.cs" />
+     <Compile Include="Assets\Scripts\ShopItemOnClick.cs" />
      <Compile Include="Assets\Scripts\Tooltip.cs" />
      <Compile Include="Assets\Scripts\TreeCheck.cs" />
      <Compile Include="Assets\Scripts\TreeScale.cs" />
@@ -270,6 +273,7 @@
      <Compile Include="Assets\SomeOtherValues.cs" />
      <Compile Include="Assets\TestTransformSpeed.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Depth.shader" />
+     <None Include="Assets\Rain&amp;Snow_StaticNova\README.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo20.txt" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />

@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class ActiveDeactive : MonoBehaviour {
-	public bool active = true;
 	public GameObject trees;
 	public Vector3 m_pos;
 	void Start()
@@ -12,7 +11,6 @@ public class ActiveDeactive : MonoBehaviour {
 	// Use this for initialization
 	public void SetActivated()
 	{
-		active = !active;
-		trees.SetActive (active);
+		trees.SetActive (!gameObject.activeSelf);
 	}
 }

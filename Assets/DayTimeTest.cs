@@ -3,12 +3,12 @@ using System.Collections;
 
 public class DayTimeTest : MonoBehaviour {
 	private bool bTest = true;
-	private float fTime = 0.0f;
+//	private float fTime = 0.0f;
 	public Color noonCol, eveningCol, goldenHourCol, nightCol;
- 	Light light;
+ 	Light lightz;
 	// Use this for initialization
 	void Start () {
-		light = GetComponent<Light>();
+//		lightz = GetComponent<Light>();
 	}
 	
 	// Update is called once per frame

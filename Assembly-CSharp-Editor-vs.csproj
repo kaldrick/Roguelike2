@@ -91,6 +91,7 @@
      <Compile Include="Assets\SaveIt\Editor\SaveItVerification.cs" />
      <Compile Include="Assets\SaveIt\Editor\SaveableEditor.cs" />
      <None Include="Assets\NGUI\Resources\Shaders\Depth.shader" />
+     <None Include="Assets\Rain&amp;Snow_StaticNova\README.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo20.txt" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />

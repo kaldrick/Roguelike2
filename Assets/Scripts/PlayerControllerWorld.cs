@@ -73,26 +73,41 @@ public class PlayerControllerWorld : MonoBehaviour {
 		}
 		if(Input.GetKeyDown (KeyCode.I))
 		{
-			UIinv.SetActive (!UIinv.activeSelf);
+			if(!GameObject.Find ("CityUI Root (3D)"))
+			{ 
+				UIinv.SetActive (!UIinv.activeSelf);
+			}
 		}
 		if(Input.GetKeyDown (KeyCode.Escape))
 		{
-			Debug.Log ("Działam!");
-			if(cityCam.enabled = true && !cityInv.activeSelf)
+			//Debug.Log ("Działam!");
+			if(UIinv.activeSelf)
 			{
-				normalCam.enabled = true;
-				cityCam.enabled = false;
+				UIinv.SetActive (!UIinv.activeSelf);
 			}
-			else if(cityInv.activeSelf)
+			else
 			{
-				normalCam.enabled = false;
-				cityCam.enabled = true;
-				foreach(Transform child in GameObject.Find ("CityGrid").transform)
+				if(cityCam.enabled = true && !cityInv.activeSelf)
 				{
-					Destroy (child.gameObject);
+					normalCam.enabled = true;
+					cityCam.enabled = false;
 				}
-				cityInv.SetActive(!cityInv.activeSelf);
+				else if(cityInv.activeSelf)
+				{
+					normalCam.enabled = false;
+					cityCam.enabled = true;
+					StartCoroutine(destroyChildren());
+					cityInv.SetActive(!cityInv.activeSelf);
+				}
 			}
+		}
+	}
+	IEnumerator destroyChildren()
+	{
+		foreach(Transform child in GameObject.Find ("CityGrid").transform)
+		{
+			Destroy (child.gameObject);
+			yield return new WaitForSeconds(0.01f);
 		}
 	}
 	void FixedUpdate()
@@ -145,6 +160,6 @@ public class PlayerControllerWorld : MonoBehaviour {
 	}
 	void OnCollisionEnter(Collision other)
 	{
-		Debug.Log ("BUM!" + other.collider.name);
+		//Debug.Log ("BUM!" + other.collider.name);
 	}
 }

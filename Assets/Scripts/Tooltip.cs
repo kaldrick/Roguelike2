@@ -3,10 +3,10 @@ using System.Linq;
 using System.Collections;
 public enum houseType
 {
-	bFarm, bTartak, bHunter, 
-	bChief, bShaman, bWorkshopMech, 
-	bWorkshopArm, bMedic, bSklad, 
-	bKarawana, bSzabry, bGorzelnia
+	Farm, Sawmill, Hunter, 
+	Chief, Shaman, MechanicalWorkshop, 
+	ArmsWorkshop, Medic, Warehouse, 
+	Caravan, LootBrotherhood, Distillery
 };
 public class TooltipData
 {
@@ -27,18 +27,18 @@ public class TooltipData
 	public float House4ratio = 0f;
 	public float House5ratio = 0f;
 	public float House6ratio = 0f;
-	public bool bFarm = false;
-	public bool bTartak = false;
-	public bool bHunter = false;
-	public bool bChief = false;
-	public bool bShaman = false;
-	public bool bWorkshopMech = false;
-	public bool bWorkshopArm = false;
-	public bool bMedic = false;
-	public bool bSklad = false;
-	public bool bKarawana = false;
-	public bool bSzabry = false;
-	public bool bGorzelnia = false;
+	public bool Farm = false;
+	public bool Sawmill = false;
+	public bool Hunter = false;
+	public bool Chief = false;
+	public bool Shaman = false;
+	public bool MechanicalWorkshop = false;
+	public bool ArmsWorkshop = false;
+	public bool Medic = false;
+	public bool Warehouse = false;
+	public bool Caravan = false;
+	public bool LootBrotherhood = false;
+	public bool Distillery = false;
 	public int resources = 0;
 	public string name;
 }
@@ -65,7 +65,7 @@ public class Tooltip : MonoBehaviour {
 
 			if(!transform.parent.GetComponent<Tooltip>())
 			{
-				Debug.Log ("bFarm: " + tooltip.house1Availability);
+				//Debug.Log ("Farm: " + tooltip.house1Availability);
 				GameObject.Find ("PlayerWorld").GetComponent<PlayerData>().numberOfChatkiParent++;
 				transform.name = "Chatka parent" + GameObject.Find ("PlayerWorld").GetComponent<PlayerData>().numberOfChatkiParent;
 				tooltip.name = transform.name;
@@ -93,69 +93,69 @@ public class Tooltip : MonoBehaviour {
 		tooltip.House5ratio = Random.Range (80f, 120f);
 		tooltip.House6ratio = Random.Range (80f, 120f);
 
-		Debug.Log ("Ma tatusia? : " + transform.parent.GetComponents<Tooltip>().Length + " Ma dzieci i numer: " + tooltip.children*2 + transform.name);
+		////Debug.Log ("Ma tatusia? : " + transform.parent.GetComponents<Tooltip>().Length + " Ma dzieci i numer: " + tooltip.children*2 + transform.name);
 		while(i<tooltip.children*2)
 		{
 			j = Random.Range (0,6);
 			if(j == 0 && tooltip.house1Availability == 0)
 			{
 				tooltip.house1Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					Debug.Log ("Działa?");
-					tooltip.house1 = houseType.bChief; tooltip.bChief = true;  
+					////Debug.Log ("Działa?");
+					tooltip.house1 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					Debug.Log ("Działam?");
-					if(r > 2.15f && !tooltip.bFarm)
+					////Debug.Log ("Działam?");
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house1 =  houseType.bFarm; tooltip.bFarm = true;
+						tooltip.house1 =  houseType.Farm; tooltip.Farm = true;
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house1 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house1 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house1 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house1 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house1 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house1 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house1 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house1 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house1 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house1 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house1 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house1 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house1 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house1 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house1 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house1 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house1 =  houseType.bSzabry;
+						tooltip.house1 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house1 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house1 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
@@ -163,60 +163,60 @@ public class Tooltip : MonoBehaviour {
 			else if(j == 1 && tooltip.house2Availability == 0)
 			{
 				tooltip.house2Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					tooltip.house2 = houseType.bChief; tooltip.bChief = true;  
+					tooltip.house2 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					if(r > 2.15f && !tooltip.bFarm)
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house2 =  houseType.bFarm; tooltip.bFarm = true;  
+						tooltip.house2 =  houseType.Farm; tooltip.Farm = true;  
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house2 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house2 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house2 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house2 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house2 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house2 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house2 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house2 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house2 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house2 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house2 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house2 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house2 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house2 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house2 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house2 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house2 =  houseType.bSzabry;
+						tooltip.house2 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house2 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house2 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
@@ -224,60 +224,60 @@ public class Tooltip : MonoBehaviour {
 			else if(j == 2 && tooltip.house3Availability == 0)
 			{
 				tooltip.house3Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					tooltip.house3 = houseType.bChief; tooltip.bChief = true;  
+					tooltip.house3 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					if(r > 2.15f && !tooltip.bFarm)
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house3 =  houseType.bFarm; tooltip.bFarm = true;  
+						tooltip.house3 =  houseType.Farm; tooltip.Farm = true;  
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house3 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house3 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house3 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house3 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house3 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house3 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house3 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house3 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house3 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house3 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house3 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house3 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house3 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house3 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house3 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house3 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house3 =  houseType.bSzabry;
+						tooltip.house3 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house3 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house3 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
@@ -285,60 +285,60 @@ public class Tooltip : MonoBehaviour {
 			else if(j == 3 && tooltip.house4Availability == 0)
 			{
 				tooltip.house4Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					tooltip.house4 = houseType.bChief; tooltip.bChief = true;  
+					tooltip.house4 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					if(r > 2.15f && !tooltip.bFarm)
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house4 =  houseType.bFarm; tooltip.bFarm = true;  
+						tooltip.house4 =  houseType.Farm; tooltip.Farm = true;  
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house4 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house4 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house4 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house4 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house4 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house4 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house4 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house4 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house4 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house4 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house4 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house4 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house4 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house4 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house4 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house4 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house4 =  houseType.bSzabry;
+						tooltip.house4 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house4 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house4 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
@@ -346,60 +346,60 @@ public class Tooltip : MonoBehaviour {
 			else if(j == 4 && tooltip.house5Availability == 0)
 			{
 				tooltip.house5Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					tooltip.house5 = houseType.bChief; tooltip.bChief = true;  
+					tooltip.house5 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					if(r > 2.15f && !tooltip.bFarm)
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house5 =  houseType.bFarm; tooltip.bFarm = true;  
+						tooltip.house5 =  houseType.Farm; tooltip.Farm = true;  
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house5 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house5 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house5 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house5 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house5 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house5 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house5 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house5 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house5 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house5 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house5 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house5 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house5 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house5 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house5 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house5 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house5 =  houseType.bSzabry;
+						tooltip.house5 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house5 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house5 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
@@ -407,65 +407,65 @@ public class Tooltip : MonoBehaviour {
 			else if(j == 5 && tooltip.house6Availability == 0)
 			{
 				tooltip.house6Availability = 1;
-				if(!tooltip.bChief)
+				if(!tooltip.Chief)
 				{
-					tooltip.house6 = houseType.bChief; tooltip.bChief = true;  
+					tooltip.house6 = houseType.Chief; tooltip.Chief = true;  
 				}
 				else
 				{
 					r = Random.Range (0f, 2.66f);
-					if(r > 2.15f && !tooltip.bFarm)
+					if(r > 2.15f && !tooltip.Farm)
 					{
-						tooltip.house6 =  houseType.bFarm; tooltip.bFarm = true;  
+						tooltip.house6 =  houseType.Farm; tooltip.Farm = true;  
 					}
-					else if(r > 1.65f && r < 2.15f && !tooltip.bTartak)
+					else if(r > 1.65f && r < 2.15f && !tooltip.Sawmill)
 					{
-						tooltip.house6 =  houseType.bTartak; tooltip.bTartak = true;  
+						tooltip.house6 =  houseType.Sawmill; tooltip.Sawmill = true;  
 					}
-					else if(r > 1.15f && r < 1.65f && !tooltip.bHunter)
+					else if(r > 1.15f && r < 1.65f && !tooltip.Hunter)
 					{
-						tooltip.house6 =  houseType.bHunter; tooltip.bHunter = true;  
+						tooltip.house6 =  houseType.Hunter; tooltip.Hunter = true;  
 					}
-					else if(r > 0.85f && r < 1.15f && !tooltip.bShaman)
+					else if(r > 0.85f && r < 1.15f && !tooltip.Shaman)
 					{
-						tooltip.house6 =  houseType.bShaman; tooltip.bShaman = true;  
+						tooltip.house6 =  houseType.Shaman; tooltip.Shaman = true;  
 					}
-					else if(r > 0.75f && r < 0.85f && !tooltip.bWorkshopArm && !tooltip.bWorkshopMech)
+					else if(r > 0.75f && r < 0.85f && !tooltip.ArmsWorkshop && !tooltip.MechanicalWorkshop)
 					{
 						float z = Random.Range (0f, 1f);
 						if(z < 0.5f)
 						{
-							tooltip.house6 =  houseType.bWorkshopArm; tooltip.bWorkshopArm = true;  
+							tooltip.house6 =  houseType.ArmsWorkshop; tooltip.ArmsWorkshop = true;  
 						}
 						else
 						{
-							tooltip.house6 =  houseType.bWorkshopMech; tooltip.bWorkshopMech = true;  
+							tooltip.house6 =  houseType.MechanicalWorkshop; tooltip.MechanicalWorkshop = true;  
 						}
 					}
-					else if(r > 0.70f && r < 0.75f && !tooltip.bMedic)
+					else if(r > 0.70f && r < 0.75f && !tooltip.Medic)
 					{
-						tooltip.house6 =  houseType.bMedic; tooltip.bMedic = true;  
+						tooltip.house6 =  houseType.Medic; tooltip.Medic = true;  
 					}
-					else if(r > 0.60f && r < 0.70f && !tooltip.bSklad)
+					else if(r > 0.60f && r < 0.70f && !tooltip.Warehouse)
 					{
-						tooltip.house6 =  houseType.bSklad; tooltip.bSklad = true;  
+						tooltip.house6 =  houseType.Warehouse; tooltip.Warehouse = true;  
 					}
-					else if(r > 0.40f && r < 0.60f && !tooltip.bKarawana)
+					else if(r > 0.40f && r < 0.60f && !tooltip.Caravan)
 					{
-						tooltip.house6 =  houseType.bKarawana; tooltip.bKarawana = true;  
+						tooltip.house6 =  houseType.Caravan; tooltip.Caravan = true;  
 					}
-					else if(r > 0.30f && r < 0.40f && !tooltip.bSzabry)
+					else if(r > 0.30f && r < 0.40f && !tooltip.LootBrotherhood)
 					{
-						tooltip.house6 =  houseType.bSzabry;
+						tooltip.house6 =  houseType.LootBrotherhood;
 					}
-					else if(r < 0.3f && !tooltip.bGorzelnia)
+					else if(r < 0.3f && !tooltip.Distillery)
 					{
-						tooltip.house6 =  houseType.bGorzelnia; tooltip.bGorzelnia = true;  
+						tooltip.house6 =  houseType.Distillery; tooltip.Distillery = true;  
 					}
 				}
 				i++;
 			}
-			Debug.Log ("IIIIII: " + j);
+			//Debug.Log ("IIIIII: " + j);
 		}
 	}
 	IEnumerator CheckTooltip()
@@ -516,7 +516,7 @@ public class Tooltip : MonoBehaviour {
 			                          tooltip.House3ratio * tooltip.house3Availability * playerData.fTimePassed + tooltip.House4ratio * tooltip.house4Availability * playerData.fTimePassed + 
 			                          tooltip.House5ratio * tooltip.house5Availability * playerData.fTimePassed + tooltip.House6ratio * tooltip.house6Availability * playerData.fTimePassed);
 		}
-	//	Debug.Log ("Dzialam");
+	//	//Debug.Log ("Dzialam");
 		
 	}
 	void OnMouseExit(){
@@ -529,7 +529,7 @@ public class Tooltip : MonoBehaviour {
 	{
 		if((Vector3.Distance (transform.position, player.transform.position) < 100))
 		{
-			Debug.Log (GameObject.Find ("Text1").GetComponent<TextMesh>());
+			//Debug.Log (GameObject.Find ("Text1").GetComponent<TextMesh>());
 			GameObject.Find ("Text1").GetComponent<TextMesh>().text = tooltip.house1.ToString () + " " + tooltip.House1ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text2").GetComponent<TextMesh>().text = tooltip.house2.ToString () + " " + tooltip.House2ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text3").GetComponent<TextMesh>().text = tooltip.house3.ToString () + " " + tooltip.House3ratio.ToString ("f1") + "/s";
@@ -542,7 +542,14 @@ public class Tooltip : MonoBehaviour {
 			GameObject.Find ("House4").GetComponent<ChatkaOnClick>().myName = tooltip.house4.ToString ();
 			GameObject.Find ("House5").GetComponent<ChatkaOnClick>().myName = tooltip.house5.ToString ();
 			GameObject.Find ("House6").GetComponent<ChatkaOnClick>().myName = tooltip.house6.ToString ();
+			GameObject.Find ("House1").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
+			GameObject.Find ("House2").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
+			GameObject.Find ("House3").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
+			GameObject.Find ("House4").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
+			GameObject.Find ("House5").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
+			GameObject.Find ("House6").GetComponent<ChatkaOnClick>().bInventoryChanged = false;
 			GameObject.Find ("Resources").GetComponent<TextMesh>().text = "Resources: " + tooltip.resources.ToString ("f1");
+			GameObject.Find ("City").GetComponent<CityVariables>().parentNumber = tooltip.parent;
 			player.normalCam.enabled = false;
 			player.cityCam.enabled = true;
 			if(tooltip.house1Availability == 1)

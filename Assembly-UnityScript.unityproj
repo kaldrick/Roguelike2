@@ -55,6 +55,9 @@
      <Compile Include="Assets\PlayerPrefsPlus\Demo.js" />
      <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsArray.js" />
      <Compile Include="Assets\PlayerPrefsPlus\Plugins\PlayerPrefsPlus.js" />
+     <Compile Include="Assets\Rain&amp;Snow_StaticNova\Scripts\ParticleHit.js" />
+     <Compile Include="Assets\Rain&amp;Snow_StaticNova\Scripts\PreviewScript.js" />
+     <Compile Include="Assets\Rain&amp;Snow_StaticNova\Scripts\SplashScript_Legacy.js" />
      <Compile Include="Assets\Skies of Flame Assets\Scripting\Generic Scripts\dayNightCycle.js" />
      <Compile Include="Assets\SomeValues.js" />
      <Compile Include="Assets\ToD\Tod.js" />
@@ -62,6 +65,7 @@
      <Compile Include="Assets\mVertexPaint10\colorpicker.js" />
      <Compile Include="Assets\mVertexPaint10\mVertexPaint1.js" />
      <None Include="Assets\NGUI\Resources\Shaders\Depth.shader" />
+     <None Include="Assets\Rain&amp;Snow_StaticNova\README.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo20.txt" />
      <None Include="Assets\Resources\LibNoise.Unity\COPYING.txt" />
      <None Include="Assets\NGUI\Examples\Atlases\Wooden\Arimo14.txt" />

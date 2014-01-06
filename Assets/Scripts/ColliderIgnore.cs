@@ -18,7 +18,7 @@ public class ColliderIgnore : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 		ActiveDeactive activated = other.GetComponent<ActiveDeactive>();
-		if(!activated.active)
+		if(!other.gameObject.activeSelf)
 		{
 			activated.SetActivated ();
 		}
@@ -27,7 +27,7 @@ public class ColliderIgnore : MonoBehaviour {
 	void OnTriggerExit(Collider other)
 	{
 		ActiveDeactive activated = other.GetComponent<ActiveDeactive>();
-		if(activated.active)
+		if(other.gameObject.activeSelf)
 		{
 			activated.SetActivated ();
 		}
