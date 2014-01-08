@@ -30,6 +30,8 @@ public class PlayerData : MonoBehaviour {
 	public GameObject itemPrefab;
 	public int quantityTest = 0;
 	public int removeTest = 0;
+	public int cash = 1000;
+	public Item cashObject;
 	//public System.Predicate<ChunkData> chunkPredicate = new System.Predicate<ChunkData>(checkChunk);
 	// Use this for initialization
 	void Start () {
@@ -59,24 +61,31 @@ public class PlayerData : MonoBehaviour {
 	{
 		newItem.name = oldItem.name;
 		newItem.quality = oldItem.quality;
-		newItem.quantity = oldItem.quantity;
+		newItem.quantity = 1;
 		newItem.weight = oldItem.weight;
 		newItem.price = oldItem.price;
 	}
 	public void AddItem(Item item)
 	{
-		item.gameObject.name = item.gameObject.name.Remove (item.gameObject.name.Length - 1) + "i";
+		StartCoroutine (corAdd (item));
+	}
+	IEnumerator corAdd(Item item)
+	{
+		//item.gameObject.name = item.gameObject.name.Remove (item.gameObject.name.Length - 1) + "i";
+		yield return new WaitForSeconds(0.1f);
+		cash -= item.price;
 		if(Inventory.Find (i => i.name == item.name))
 		{
 			quantityTest++;
 			//Debug.Log ("ZNALAZLEM: " + item.name);
 			//Debug.Log ("ZNALAZLEM: " + item.name);
 			Debug.Log ("Znalazłem: " + item.name + " na miejscu: " + Inventory.IndexOf (item) + "w PlayerData" + quantityTest);
-			if(quantityTest > 1)
-			{
-				Inventory.Find (i => i.name == item.name).quantity++;
-				Inventory.Find (i => i.name == item.name).bChecked = false;
-			}
+			//if(quantityTest > 1)
+			//{
+			Inventory.Find (i => i.name == item.name).quantity++;
+			Inventory.Find (i => i.name == item.name).bChecked = false;
+			yield return new WaitForSeconds(0.1f);
+			//}
 		}
 		else
 		{
@@ -94,30 +103,36 @@ public class PlayerData : MonoBehaviour {
 			newItem.transform.localScale = new Vector3(1,1,1);
 			//newItem.GetComponent<Item>().houseName = gameObject.name;
 			Inventory.Add (newItem.GetComponent<Item>());
-		//	//Debug.Log ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + HouseInventoryCount + "/" + Inventory.Count);
+			//	//Debug.Log ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + HouseInventoryCount + "/" + Inventory.Count);
 		}
 		StartCoroutine (RepositionGrid());
 	}
-
 	public void RemoveItem(Item item)
 	{
+		StartCoroutine (corRem (item));
+	}
+	IEnumerator corRem(Item item)
+	{
+		yield return new WaitForSeconds(0.1f);
+		cash += item.price;
 		if(item.quantity > 1)
 		{
 			removeTest++;
 			Debug.Log ("Znalazłem: " + item.name + " na miejscu: " + item.quantity + "w PlayerData" + removeTest);
-			if(removeTest > 1)
-			{
+		//	if(removeTest > 1)
+		//	{
 				item.quantity--;
 				item.bChecked =  false;
-			}
+			yield return new WaitForSeconds(0.1f);
+		//	}
 		}
 		else
 		{
 			////Debug.Log ("????" + Inventory.Find (i => i.name == item.name));
 			Inventory.Remove ( Inventory.Find (i => i.name == item.name));
 			//GameObject.Find ("HouseGrid/"+item.name + "h").SetActive (false);
-			GameObject.Destroy (GameObject.Find ("HouseGrid/"+item.name + "h"));
-
+			GameObject.Destroy (GameObject.Find ("HouseGrid/"+item.name + "i"));
+			
 			StartCoroutine (RepositionGrid());
 		}
 	}
@@ -245,6 +260,29 @@ public class PlayerData : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
+		if(cashObject == null)
+		{	
+			if(Inventory.Find (i => i.name == "Bottlecaps"))
+			{
+				cashObject = Inventory.Find (i => i.name == "Bottlecaps");
+			}
+		}
+		else
+		{
+			if(cashObject.quantity != cash )
+			{
+				cashObject.quantity = cash;
+				cashObject.bChecked =false;
+			}
+			if(GameObject.Find("Bottlecapsi"))
+			{
+				if(GameObject.Find("Bottlecapsi").GetComponent<Item>().quantity != cash)
+				{
+					GameObject.Find("Bottlecapsi").GetComponent<Item>().quantity = cash;
+					GameObject.Find("Bottlecapsi").GetComponent<Item>().bChecked = false;
+				}
+			}
+		}
 		if(InventoryCount != Inventory.Count && GameObject.Find ("InventoryUI Root (3D)"))
 		{
 			StartCoroutine(normalInv ());

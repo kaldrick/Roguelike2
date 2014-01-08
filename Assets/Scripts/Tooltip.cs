@@ -536,6 +536,7 @@ public class Tooltip : MonoBehaviour {
 			GameObject.Find ("Text4").GetComponent<TextMesh>().text = tooltip.house4.ToString () + " " + tooltip.House4ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text5").GetComponent<TextMesh>().text = tooltip.house5.ToString () + " " + tooltip.House5ratio.ToString ("f1") + "/s";
 			GameObject.Find ("Text6").GetComponent<TextMesh>().text = tooltip.house6.ToString () + " " + tooltip.House6ratio.ToString ("f1") + "/s";
+
 			GameObject.Find ("House1").GetComponent<ChatkaOnClick>().myName = tooltip.house1.ToString ();
 			GameObject.Find ("House2").GetComponent<ChatkaOnClick>().myName = tooltip.house2.ToString ();
 			GameObject.Find ("House3").GetComponent<ChatkaOnClick>().myName = tooltip.house3.ToString ();

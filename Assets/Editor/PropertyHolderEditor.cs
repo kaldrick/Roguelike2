@@ -38,8 +38,8 @@ public class PropertyHolderEditor : Editor  {
 		ShowOnEnum("typeOfHouse","Medic","nameOfGoodsMedic"); //type1Var is only visible when type == Type1
 		ShowOnEnum("typeOfHouse","Medic","basicPriceForGoodsMedic"); //type1Var is only visible when type == Type1
 
-		ShowOnEnum("typeOfHouse","Storehouse","nameOfGoodsStorehouse"); //type1Var is only visible when type == Type1
-		ShowOnEnum("typeOfHouse","Storehouse","basicPriceForGoodsStorehouse"); //type1Var is only visible when type == Type1
+		ShowOnEnum("typeOfHouse","Warehouse","nameOfGoodsWarehouse"); //type1Var is only visible when type == Type1
+		ShowOnEnum("typeOfHouse","Warehouse ","basicPriceForGoodsWarehouse"); //type1Var is only visible when type == Type1
 
 		ShowOnEnum("typeOfHouse","Caravan","nameOfGoodsCaravan"); //type1Var is only visible when type == Type1
 		ShowOnEnum("typeOfHouse","Caravan","basicPriceForGoodsCaravan"); //type1Var is only visible when type == Type1

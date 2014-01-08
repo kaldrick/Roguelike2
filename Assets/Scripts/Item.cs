@@ -9,6 +9,7 @@ public class Item : MonoBehaviour{
 	public int price;
 	public bool bChecked = false;
 	public string houseName;
+	public GameObject currentHolder;
 	public Item(string dName, int dQuality, int dQuantity, float dWeight, int dPrice)
 	{
 		name = dName;
@@ -25,6 +26,7 @@ public class Item : MonoBehaviour{
 	{
 		if(gameObject.activeSelf && !bChecked)
 		{
+			Debug.Log ("???" + name	);
 			foreach(Transform child in gameObject.transform)
 			{
 				if(child.name == "NAME")
@@ -41,13 +43,18 @@ public class Item : MonoBehaviour{
 				}
 				else if(child.name == "WEIGHT")
 				{
-					child.GetComponent<UILabel>().text = weight.ToString () + " KG";
+					if(name == "Bottlecaps")
+					{
+						weight = quantity * 0.001f;
+					}
+					child.GetComponent<UILabel>().text = weight.ToString ("F2") + " KG";
 				}
 				else if(child.name == "PRICE")
 				{
 					child.GetComponent<UILabel>().text = price.ToString () + " $";
 				}
 			}
+			
 			//Debug.Log ("Czekuje!" + transform.name);
 			bChecked = true;
 		}

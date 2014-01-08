@@ -17,9 +17,12 @@ public class ChatkaOnClick : MonoBehaviour {
 	public int quantityTest = 0;
 	public int removeTest = 0;
 	public bool bNormalInv = false;
+	public int cash = 1000;
+	public Item cashObject;
 	void OnMouseDown()
 	{	
 		city = GameObject.Find ("City").GetComponent<CityVariables>();
+		cash = Random.Range (100, 1500);
 		if(!cityInv.activeSelf)
 		{
 			cityInv.SetActive (true);
@@ -81,20 +84,27 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	public void AddItem(Item item)
 	{
-		item.gameObject.name = item.gameObject.name.Remove (item.gameObject.name.Length - 1) + "h";
+		StartCoroutine(corAdd (item));
+	}
+	IEnumerator corAdd(Item item)
+	{
+		//item.gameObject.name = item.gameObject.name.Remove (item.gameObject.name.Length - 1) + "h";
+		yield return new WaitForSeconds(0.1f);
+		cash -= item.price;
 		if(Inventory.Find (i => i.name == item.name))
 		{
 			quantityTest++;
 			Debug.Log ("Znalazłem: " + item.name + " na miejscu: " + Inventory.IndexOf (item) + "w ChatkaOnClick AddItem" + quantityTest);
-			if(quantityTest>1)
-			{
-				Inventory.Find (i => i.name == item.name).quantity++;
-				Inventory.Find (i => i.name == item.name).bChecked = false;
-			}
+			//if(quantityTest>1)
+			//{
+			Inventory.Find (i => i.name == item.name).quantity++;
+			Inventory.Find (i => i.name == item.name).bChecked = false;
+			//}
+			yield return new WaitForSeconds(0.1f);
 		}
 		else
 		{
-		//	//Debug.Log ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + item);
+			//	//Debug.Log ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + item);
 			quantityTest = 0;
 			newItem = Instantiate (itemPrefab, itemPrefab.transform.position, itemPrefab.transform.rotation) as GameObject;
 			newItem.AddComponent<Item>();
@@ -104,7 +114,7 @@ public class ChatkaOnClick : MonoBehaviour {
 				inventoryParent = GameObject.Find ("CityGrid");
 			}
 			newItem.transform.parent = inventoryParent.transform;
-
+			
 			newItem.transform.name = newItem.GetComponent<Item>().name + "h";
 			newItem.transform.localPosition += new Vector3(48,0,0);
 			newItem.transform.localScale = new Vector3(1,1,1);
@@ -179,6 +189,29 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	void Update()
 	{
+		if(cashObject == null)
+		{	
+			if(Inventory.Find (i => i.name == "Bottlecaps"))
+			{
+				cashObject = Inventory.Find (i => i.name == "Bottlecaps");
+			}
+		}
+		else
+		{
+			if(cashObject.quantity != cash )
+			{
+				cashObject.quantity = cash;
+				cashObject.bChecked =false;
+			}
+			if(GameObject.Find("Bottlecapsh"))
+			{
+				if(GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity != cash)
+				{
+					GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity = cash;
+					GameObject.Find("Bottlecapsh").GetComponent<Item>().bChecked = false;
+				}
+			}
+		}
 		if(InventoryCount < Inventory.Count && GameObject.Find ("CityUI Root (3D)") && bNormalInv)
 		{
 		//	InventoryCount = 0;
@@ -195,7 +228,7 @@ public class ChatkaOnClick : MonoBehaviour {
 	{
 		newItem.name = oldItem.name;
 		newItem.quality = oldItem.quality;
-		newItem.quantity = oldItem.quantity;
+		newItem.quantity = 1;
 		newItem.weight = oldItem.weight;
 		newItem.price = oldItem.price;
 	}
@@ -203,23 +236,30 @@ public class ChatkaOnClick : MonoBehaviour {
 
 	public void RemoveItem(Item item)
 	{
+		StartCoroutine (corRem (item));
+	}
+	IEnumerator corRem(Item item)
+	{
+		yield return new WaitForSeconds(0.1f);
+		cash += item.price;
 		if(item.quantity > 1)
 		{
 			removeTest++;
-
-			if(removeTest > 1)
-			{
+			
+			//if(removeTest > 1)
+			//{
 				item.quantity--;
 				item.bChecked = false;
 				Debug.Log ("Znalazłem: " + item.name + " na miejscu: " + item.quantity + "w ChatkaOnClick" + removeTest);
-			}
+			yield return new WaitForSeconds(0.1f);
+			//}
 		}
 		else
 		{
 			//Debug.Log ("????" + Inventory.Find (i => i.name == item.name));
 			Inventory.Remove ( Inventory.Find (i => i.name == item.name));
 			//GameObject.Find ("CityGrid/" + item.name + "i").SetActive(false);
-			GameObject.Destroy (GameObject.Find ("CityGrid/" + item.name + "i"));
+			GameObject.Destroy (GameObject.Find ("CityGrid/" + item.name + "h"));
 			StartCoroutine (RepositionGrid());
 		}
 	}
