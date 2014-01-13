@@ -17,12 +17,12 @@ public class ChatkaOnClick : MonoBehaviour {
 	public int quantityTest = 0;
 	public int removeTest = 0;
 	public bool bNormalInv = false;
-	public int cash = 1000;
+	public int cash;
 	public Item cashObject;
+	public bool bFirstTime = false;
 	void OnMouseDown()
 	{	
 		city = GameObject.Find ("City").GetComponent<CityVariables>();
-		cash = Random.Range (100, 1500);
 		if(!cityInv.activeSelf)
 		{
 			cityInv.SetActive (true);
@@ -43,17 +43,24 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	IEnumerator checkCity()
 	{
-		yield return new WaitForSeconds (0.01f);
+		yield return new WaitForSeconds (0.1f);
 		if(city.houseInventories.ContainsKey(city.parentNumber.ToString () + "/" + myName))
 		{
+			Debug.Log (city.parentNumber.ToString () + "/" + myName);
+			city.currentInv = city.houseInventories[city.parentNumber.ToString () + "/" + myName];
+			bFirstTime = true;
+		//	cash = Random.Range (100, 1500);
+			Debug.Log ("dzialam?inv " + city.parentNumber.ToString () + "/" + myName);
 			//Inventory.Clear ();
 			Inventory = city.houseInventories[city.parentNumber.ToString () + "/" + myName];
+			cash = city.houseInventories[city.parentNumber.ToString () + "/" + myName].Find (i => i.name == "Bottlecaps").quantity;
 			//Debug.Log ("MAM!" + city.parentNumber.ToString () + "/" + myName + " ## " + Inventory.Count +"/" +  city.houseInventories[city.parentNumber.ToString () + "/" + myName].Count);
 			bInventoryChanged = true;
 		}
 		else
 		{
-			
+			bFirstTime = false;
+
 		}
 		yield return new WaitForSeconds(0.05f);
 
@@ -69,7 +76,7 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	IEnumerator destroyChildren()
 	{
-
+		Debug.Log("DESTROY");
 		transform.root.GetComponent<CityVariables>().chatkaName = transform.name;
 		GameObject.Find ("ChatkaName").GetComponent<UILabel>().text = myName;
 		city.currentHouseName = city.parentNumber.ToString () + "/" + myName;
@@ -84,7 +91,10 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	public void AddItem(Item item)
 	{
-		StartCoroutine(corAdd (item));
+		if(cash >= item.price)
+		{
+			StartCoroutine(corAdd (item));
+		}
 	}
 	IEnumerator corAdd(Item item)
 	{
@@ -100,6 +110,8 @@ public class ChatkaOnClick : MonoBehaviour {
 			Inventory.Find (i => i.name == item.name).quantity++;
 			Inventory.Find (i => i.name == item.name).bChecked = false;
 			//}
+			city.houseInventories[city.parentNumber.ToString () + "/" + myName] = Inventory;
+			Debug.Log ("!!!!!!!!!!!!ZAPISUJE " + city.parentNumber.ToString () + "/" + myName);
 			yield return new WaitForSeconds(0.1f);
 		}
 		else
@@ -120,6 +132,8 @@ public class ChatkaOnClick : MonoBehaviour {
 			newItem.transform.localScale = new Vector3(1,1,1);
 			newItem.GetComponent<Item>().houseName = gameObject.name;
 			Inventory.Add (newItem.GetComponent<Item>());
+			city.houseInventories[city.parentNumber.ToString () + "/" + myName] = Inventory;
+			Debug.Log ("!!!!!!!!!!!!ZAPISUJE " + city.parentNumber.ToString () + "/" + myName);
 			////Debug.Log ("????" + Inventory.Find (i => i.name == item.name));
 		}
 		StartCoroutine (RepositionGrid());
@@ -189,27 +203,17 @@ public class ChatkaOnClick : MonoBehaviour {
 	}
 	void Update()
 	{
-		if(cashObject == null)
-		{	
-			if(Inventory.Find (i => i.name == "Bottlecaps"))
-			{
-				cashObject = Inventory.Find (i => i.name == "Bottlecaps");
-			}
-		}
-		else
+		if(!bFirstTime)
 		{
-			if(cashObject.quantity != cash )
+			cash = Random.Range (100, 1500);
+			Debug.Log ("Zmieniam!");
+			bFirstTime = true;
+		}
+		if(GameObject.Find("Bottlecapsh") && GameObject.Find("Bottlecapsh").GetComponent<Item>().houseName == gameObject.name)
+		{
+			if(GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity != cash)
 			{
-				cashObject.quantity = cash;
-				cashObject.bChecked =false;
-			}
-			if(GameObject.Find("Bottlecapsh"))
-			{
-				if(GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity != cash)
-				{
-					GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity = cash;
-					GameObject.Find("Bottlecapsh").GetComponent<Item>().bChecked = false;
-				}
+				StartCoroutine (testCash ());
 			}
 		}
 		if(InventoryCount < Inventory.Count && GameObject.Find ("CityUI Root (3D)") && bNormalInv)
@@ -222,6 +226,16 @@ public class ChatkaOnClick : MonoBehaviour {
 		{
 			//InventoryCount = 0;
 			bNormalInv = false;
+		}
+	}
+	IEnumerator testCash()
+	{
+		yield return new WaitForSeconds(0.2f);
+		if(GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity != cash)
+		{
+			GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity = cash;
+			GameObject.Find("Bottlecapsh").GetComponent<Item>().bChecked = false;
+			Debug.Log ("cashobject quantity " + GameObject.Find("Bottlecapsh").GetComponent<Item>().quantity + "/ cash " + cash + " |||| ");
 		}
 	}
 	void CopyTo(Item oldItem, Item newItem)
@@ -268,6 +282,7 @@ public class ChatkaOnClick : MonoBehaviour {
 		yield return new WaitForSeconds(.1f);
 		GameObject.Find ("CityGrid").GetComponent<UIGrid>().Reposition ();
 		city.houseInventories[city.parentNumber.ToString () + "/" + myName] = Inventory;
+		Debug.Log ("!!!!!!!!!!!!ZAPISUJE " + city.parentNumber.ToString () + "/" + myName);
 		Debug.Log ("###########" + city.houseInventories[city.parentNumber.ToString () + "/" + myName]);
 		quantityTest = 0;
 		removeTest = 0;
@@ -370,6 +385,7 @@ public class ChatkaOnClick : MonoBehaviour {
 	}*/
 	IEnumerator startChatka()
 	{
+		Debug.Log ("START");
 		Inventory.Clear ();
 		transform.root.GetComponent<CityVariables>().chatkaName = transform.name;
 		GameObject.Find ("ChatkaName").GetComponent<UILabel>().text = myName;
@@ -426,6 +442,8 @@ public class ChatkaOnClick : MonoBehaviour {
 			//}
 			yield return new WaitForSeconds(0.001f);
 		}
+		//city.currentInv = Inventory;
 		city.houseInventories.Add (city.parentNumber.ToString () + "/" + myName, Inventory);
+		Debug.Log ("!!!!!!!!!!!!ZAPISUJE " + city.parentNumber.ToString () + "/" + myName);
 	}
 }

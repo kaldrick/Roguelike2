@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 public class HouseTypes : MonoBehaviour {
-	public enum houseTypes {Chief, Farm, Sawmill, Hunter, Shaman, MechanicalWorkshop, ArmsWorkshop, Medic, Warehouse, Caravan, LootBrotherhood, Distillery};
+	public enum houseTypes {Chief, Farm, Sawmill, Hunter, Shaman, MechanicalWorkshop, ArmsWorkshop, Medic, Storehouse, Caravan, LootBrotherhood, Distillery};
 	public houseTypes typeOfHouse;
 	public Dictionary<string, List<Item>> houses = new Dictionary<string, List<Item>>();
 	public List<Item> nameOfGoodsChief = new List<Item>();
-	public List<int> basicPriceForGoodsChief = new List<int>();
+	public List<int> basicPriceForGoodsChief = new List<int>(); 
 
 	public List<Item> nameOfGoodsFarm = new List<Item>();
 	public List<int> basicPriceForGoodsFarm = new List<int>();
@@ -29,8 +29,8 @@ public class HouseTypes : MonoBehaviour {
 	public List<Item> nameOfGoodsMedic = new List<Item>();
 	public List<int> basicPriceForGoodsMedic = new List<int>();
 
-	public List<Item> nameOfGoodsWarehouse = new List<Item>();
-	public List<int> basicPriceForGoodsWarehouse = new List<int>();
+	public List<Item> nameOfGoodsStorehouse = new List<Item>();
+	public List<int> basicPriceForGoodsStorehouse = new List<int>();
 
 	public List<Item> nameOfGoodsCaravan = new List<Item>();
 	public List<int> basicPriceForGoodsCaravan = new List<int>();
@@ -51,7 +51,7 @@ public class HouseTypes : MonoBehaviour {
 		houses.Add ("nameOfGoodsMechanicalWorkshop", nameOfGoodsMechanicalWorkshop);
 		houses.Add ("nameOfGoodsArmsWorkshop", nameOfGoodsArmsWorkshop);
 		houses.Add ("nameOfGoodsMedic", nameOfGoodsMedic);
-		houses.Add ("nameOfGoodsWarehouse", nameOfGoodsWarehouse);
+		houses.Add ("nameOfGoodsStorehouse", nameOfGoodsStorehouse);
 		houses.Add ("nameOfGoodsCaravan", nameOfGoodsCaravan);
 		houses.Add ("nameOfGoodsLootBrotherhood", nameOfGoodsLootBrotherhood);
 		houses.Add ("nameOfGoodsDistillery", nameOfGoodsDistillery);

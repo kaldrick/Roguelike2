@@ -67,7 +67,10 @@ public class PlayerData : MonoBehaviour {
 	}
 	public void AddItem(Item item)
 	{
-		StartCoroutine (corAdd (item));
+		if(cash >= item.price)
+		{
+			StartCoroutine (corAdd (item));
+		}
 	}
 	IEnumerator corAdd(Item item)
 	{

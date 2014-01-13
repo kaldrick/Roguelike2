@@ -26,7 +26,7 @@ public class Item : MonoBehaviour{
 	{
 		if(gameObject.activeSelf && !bChecked)
 		{
-			Debug.Log ("???" + name	);
+			//Debug.Log ("???" + name	);
 			foreach(Transform child in gameObject.transform)
 			{
 				if(child.name == "NAME")

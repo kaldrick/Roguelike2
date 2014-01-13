@@ -10,6 +10,7 @@ public class PlayerControllerWorld : MonoBehaviour {
 	public float maxZ = -8f;
 	public float maxY = 128f;
 	public float minY = 14f;
+	public int screenshot = 0;
 	public GameObject cube2;
 	public float posY, posZ, rotX, prevPosY;
 	public Vector3 camPos, camRot, startPos, startRot;
@@ -62,6 +63,11 @@ public class PlayerControllerWorld : MonoBehaviour {
 					RenderSettings.fog = true;
 				}
 			}
+		}
+		if(Input.GetKeyDown(KeyCode.F5))
+		{
+			Application.CaptureScreenshot("Screenshot" + screenshot + ".png");
+			screenshot++;
 		}
 		if(Input.GetKeyDown (KeyCode.F3))
 		{
